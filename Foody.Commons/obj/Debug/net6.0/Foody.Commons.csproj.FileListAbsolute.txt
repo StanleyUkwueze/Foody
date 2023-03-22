@@ -1,0 +1,15 @@
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.Commons.deps.json
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.Commons.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.Commons.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.DTOs.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.DTOs.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons.AssemblyInfo.cs
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons.csproj.CopyComplete
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\refint\Foody.Commons.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\ref\Foody.Commons.dll

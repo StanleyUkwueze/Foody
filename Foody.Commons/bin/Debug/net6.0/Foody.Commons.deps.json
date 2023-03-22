@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Foody.Commons/1.0.0": {
+        "dependencies": {
+          "Foody.DTOs": "1.0.0"
+        },
+        "runtime": {
+          "Foody.Commons.dll": {}
+        }
+      },
+      "Foody.DTOs/1.0.0": {
+        "runtime": {
+          "Foody.DTOs.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Foody.Commons/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Foody.DTOs/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
