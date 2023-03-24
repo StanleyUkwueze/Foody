@@ -19,12 +19,12 @@ namespace Foody.DataAcess.CategoryRepository
 
         public async Task<Product> GetProductByName(string prodName)
         {
-         return await _context.Products.FirstOrDefaultAsync(c => c.Name == prodName);
+             return await _context.Products.FirstOrDefaultAsync(c => c.Name == prodName);
         }
 
-        public void Update(Product product)
+        public async void Update(Product product)
         {
-            var productToUpdate = _context.Categories.FirstOrDefault(c => c.Id == product.Id);
+            var productToUpdate = await _context.Categories.FirstOrDefaultAsync(c => c.Id == product.Id);
 
             if(productToUpdate != null)
             {

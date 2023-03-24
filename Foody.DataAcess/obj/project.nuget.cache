@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HZODdbO3E9q4XVNFG4Sawy2vf7j9QLLyr/pR0bhFO9xyyQMze1DeaMJMXGijmF0qYd6Q9MSNjzmx0Nhlk8SDrg==",
+  "dgSpecHash": "GtZPt4wqBUDufuKwChPFuP6chAo6SB9Y7Wrhn+QV/pdYMZ+ga+1fPIcfNkC42wd5rIZko3r58IvB7+uVOIdeCw==",
   "success": true,
   "projectFilePath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DataAcess\\Foody.DataAcess.csproj",
   "expectedPackageFiles": [
@@ -40,6 +40,7 @@
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",

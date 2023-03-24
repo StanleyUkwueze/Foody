@@ -36,7 +36,7 @@ namespace Foody.DataAcess.Repository
             {
                 query = query.Where(filter);
             }
-            return query.FirstOrDefault();
+            return  query.FirstOrDefault();
         }
 
         public async Task<bool> Remove(T entity)

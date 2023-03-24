@@ -14,7 +14,6 @@ C:\Users\HP\Desktop\VegeFoods\Foody\Foody\obj\Debug\net6.0\Foody.GeneratedMSBuil
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\obj\Debug\net6.0\Foody.AssemblyInfoInputs.cache
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\obj\Debug\net6.0\Foody.AssemblyInfo.cs
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\obj\Debug\net6.0\Foody.csproj.CoreCompileInputs.cache
-C:\Users\HP\Desktop\VegeFoods\Foody\Foody\obj\Debug\net6.0\Foody.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\obj\Debug\net6.0\Foody.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\obj\Debug\net6.0\staticwebassets.development.json
@@ -71,3 +70,12 @@ C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.DataAcess.dll
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.Model.dll
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.DataAcess.pdb
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.Model.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\obj\Debug\net6.0\Foody.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.DTOs.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.Service.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.Service.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.DTOs.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.Commons.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.Commons.pdb

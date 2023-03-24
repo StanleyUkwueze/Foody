@@ -13,3 +13,9 @@ C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\refint\Foody.Commons.dll
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\Foody.Commons.pdb
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\obj\Debug\net6.0\ref\Foody.Commons.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.DataAcess.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.Model.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.Service.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.DataAcess.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.Service.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Commons\bin\Debug\net6.0\Foody.Model.pdb

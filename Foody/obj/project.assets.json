@@ -2,6 +2,22 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "AutoMapper/12.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "BCrypt.Net-Next/4.0.3": {
         "type": "package",
         "compile": {
@@ -93,7 +109,7 @@
           }
         }
       },
-      "Microsoft.CSharp/4.5.0": {
+      "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.0/_._": {}
@@ -643,6 +659,19 @@
           }
         }
       },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.2.3": {
         "type": "package",
         "dependencies": {
@@ -984,6 +1013,23 @@
           }
         }
       },
+      "Foody.Commons/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "AutoMapper": "12.0.1",
+          "Foody.DTOs": "1.0.0",
+          "Foody.DataAcess": "1.0.0",
+          "Foody.Service": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Foody.Commons.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Foody.Commons.dll": {}
+        }
+      },
       "Foody.DataAcess/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -994,13 +1040,24 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.14",
           "Microsoft.EntityFrameworkCore": "6.0.14",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.14",
-          "Microsoft.EntityFrameworkCore.Tools": "6.0.14"
+          "Microsoft.EntityFrameworkCore.Tools": "6.0.14",
+          "Newtonsoft.Json": "13.0.1"
         },
         "compile": {
           "bin/placeholder/Foody.DataAcess.dll": {}
         },
         "runtime": {
           "bin/placeholder/Foody.DataAcess.dll": {}
+        }
+      },
+      "Foody.DTOs/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Foody.DTOs.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Foody.DTOs.dll": {}
         }
       },
       "Foody.Model/1.0.0": {
@@ -1020,10 +1077,40 @@
         "runtime": {
           "bin/placeholder/Foody.Model.dll": {}
         }
+      },
+      "Foody.Service/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "AutoMapper": "12.0.1",
+          "Foody.DTOs": "1.0.0",
+          "Foody.Model": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Foody.Service.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Foody.Service.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "AutoMapper/12.0.1": {
+      "sha512": "hvV62vl6Hp/WfQ24yzo3Co9+OPl8wH8hApwVtgWpiAynVJkUcs7xvehnSftawL8Pe8FrPffBRM3hwzLQqWDNjA==",
+      "type": "package",
+      "path": "automapper/12.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "automapper.12.0.1.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/netstandard2.1/AutoMapper.dll",
+        "lib/netstandard2.1/AutoMapper.xml"
+      ]
+    },
     "BCrypt.Net-Next/4.0.3": {
       "sha512": "W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
       "type": "package",
@@ -1139,10 +1226,10 @@
         "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
-    "Microsoft.CSharp/4.5.0": {
-      "sha512": "kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
+    "Microsoft.CSharp/4.7.0": {
+      "sha512": "pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
       "type": "package",
-      "path": "microsoft.csharp/4.5.0",
+      "path": "microsoft.csharp/4.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1155,6 +1242,7 @@
         "lib/netcoreapp2.0/_._",
         "lib/netstandard1.3/Microsoft.CSharp.dll",
         "lib/netstandard2.0/Microsoft.CSharp.dll",
+        "lib/netstandard2.0/Microsoft.CSharp.xml",
         "lib/portable-net45+win8+wp8+wpa81/_._",
         "lib/uap10.0.16299/_._",
         "lib/win8/_._",
@@ -1164,7 +1252,7 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "microsoft.csharp.4.5.0.nupkg.sha512",
+        "microsoft.csharp.4.7.0.nupkg.sha512",
         "microsoft.csharp.nuspec",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
@@ -1949,6 +2037,33 @@
         "version.txt"
       ]
     },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
     "Swashbuckle.AspNetCore/6.2.3": {
       "sha512": "cnzQDn0Le+hInsw2SYwlOhOCPXpYi/szcvnyqZJ12v+QyrLBwAmWXBg6RIyHB18s/mLeywC+Rg2O9ndz0IUNYQ==",
       "type": "package",
@@ -2516,21 +2631,38 @@
         "version.txt"
       ]
     },
+    "Foody.Commons/1.0.0": {
+      "type": "project",
+      "path": "../Foody.Commons/Foody.Commons.csproj",
+      "msbuildProject": "../Foody.Commons/Foody.Commons.csproj"
+    },
     "Foody.DataAcess/1.0.0": {
       "type": "project",
       "path": "../Foody.DataAcess/Foody.DataAcess.csproj",
       "msbuildProject": "../Foody.DataAcess/Foody.DataAcess.csproj"
     },
+    "Foody.DTOs/1.0.0": {
+      "type": "project",
+      "path": "../Foody.DTOs/Foody.DTOs.csproj",
+      "msbuildProject": "../Foody.DTOs/Foody.DTOs.csproj"
+    },
     "Foody.Model/1.0.0": {
       "type": "project",
       "path": "../Foody.Model/Foody.Model.csproj",
       "msbuildProject": "../Foody.Model/Foody.Model.csproj"
+    },
+    "Foody.Service/1.0.0": {
+      "type": "project",
+      "path": "../Foody.Service/Foody.Service.csproj",
+      "msbuildProject": "../Foody.Service/Foody.Service.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Foody.Commons >= 1.0.0",
       "Foody.DataAcess >= 1.0.0",
       "Foody.Model >= 1.0.0",
+      "Foody.Service >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.14",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
@@ -2568,11 +2700,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Commons\\Foody.Commons.csproj": {
+              "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Commons\\Foody.Commons.csproj"
+            },
             "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DataAcess\\Foody.DataAcess.csproj": {
               "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DataAcess\\Foody.DataAcess.csproj"
             },
             "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj": {
               "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj"
+            },
+            "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Service\\Foody.Service.csproj": {
+              "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Service\\Foody.Service.csproj"
             }
           }
         }

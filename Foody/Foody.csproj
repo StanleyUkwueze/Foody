@@ -13,8 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Foody.Commons\Foody.Commons.csproj" />
     <ProjectReference Include="..\Foody.DataAcess\Foody.DataAcess.csproj" />
     <ProjectReference Include="..\Foody.Model\Foody.Model.csproj" />
+    <ProjectReference Include="..\Foody.Service\Foody.Service.csproj" />
   </ItemGroup>
 
 </Project>
