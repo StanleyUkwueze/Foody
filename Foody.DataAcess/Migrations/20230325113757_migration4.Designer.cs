@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Foody.DataAcess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230323033218_nullables")]
-    partial class nullables
+    [Migration("20230325113757_migration4")]
+    partial class migration4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

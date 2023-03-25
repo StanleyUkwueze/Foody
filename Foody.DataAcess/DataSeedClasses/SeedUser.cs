@@ -24,31 +24,28 @@ namespace Foody.DataAcess.DataSeedClasses
                 // deserilization of Json object
                 var usersInfo = JsonConvert.DeserializeObject<IEnumerable<Customer>>(userData);
 
-
-
                 int counter = 1;
                 string userType;
                 string msg = string.Empty;
 
                 foreach (var user in usersInfo)
                 {
-                    if (counter < 2)
-                    {
-                        userType = "Admin";
+                //    if (counter < 2)
+                //    {
+                //        userType = "ADMIN";
 
-                        var result = await userManager.CreateAsync(user, "P@ssword12");
+                //        var result = await userManager.CreateAsync(user, "P@ssword12");
 
-                        var userRole = await userManager.AddToRoleAsync(user, userType);
-                    }
+                //        var userRole = await userManager.AddToRoleAsync(user, role.);
+                //    }
 
-                    else
-                    {
+                  
                         userType = "Regular";
                         var regularUser = await userManager.CreateAsync(user, "P@assword123");
-                        var regularUserRole = await userManager.AddToRoleAsync(user, userType);
-                    }
+                        //var regularUserRole = await userManager.AddToRoleAsync(user, userType);
+                    
 
-                    counter += 1;
+                    //counter += 1;
                 }
 
                 await context.SaveChangesAsync();

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Foody.DataAcess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230322114308_datesadd")]
-    partial class datesadd
+    [Migration("20230325121926_migration6")]
+    partial class migration6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,8 +61,6 @@ namespace Foody.DataAcess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CheckoutId");
-
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Addresses");
@@ -107,11 +105,11 @@ namespace Foody.DataAcess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CheckOutDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
@@ -122,7 +120,7 @@ namespace Foody.DataAcess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("OrderId");
 
                     b.ToTable("CheckOuts");
                 });
@@ -136,7 +134,6 @@ namespace Foody.DataAcess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AvatarUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -151,16 +148,13 @@ namespace Foody.DataAcess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -255,11 +249,8 @@ namespace Foody.DataAcess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -358,7 +349,7 @@ namespace Foody.DataAcess.Migrations
 
                     b.Property<string>("CustomerId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ItemsCount")
                         .HasColumnType("int");
@@ -367,8 +358,6 @@ namespace Foody.DataAcess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -508,38 +497,30 @@ namespace Foody.DataAcess.Migrations
 
             modelBuilder.Entity("Foody.Model.Models.Address", b =>
                 {
-                    b.HasOne("Foody.Model.Models.CheckOut", "CheckOut")
-                        .WithMany()
-                        .HasForeignKey("CheckoutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Foody.Model.Models.Customer", "Customer")
                         .WithMany("Addresses")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CheckOut");
-
                     b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Foody.Model.Models.CheckOut", b =>
                 {
-                    b.HasOne("Foody.Model.Models.Address", "ShipingAddress")
+                    b.HasOne("Foody.Model.Models.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("AddressId")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ShipingAddress");
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Foody.Model.Models.Customer", b =>
                 {
                     b.HasOne("Foody.Model.Models.ShoppingCart", "ShoppingCart")
-                        .WithMany()
+                        .WithMany("Customers")
                         .HasForeignKey("ShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -550,7 +531,7 @@ namespace Foody.DataAcess.Migrations
             modelBuilder.Entity("Foody.Model.Models.Order", b =>
                 {
                     b.HasOne("Foody.Model.Models.Address", "ShippingAddress")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -576,15 +557,19 @@ namespace Foody.DataAcess.Migrations
 
             modelBuilder.Entity("Foody.Model.Models.OrderItem", b =>
                 {
-                    b.HasOne("Foody.Model.Models.Order", null)
+                    b.HasOne("Foody.Model.Models.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Foody.Model.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("OrderItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Order");
 
                     b.Navigation("Product");
                 });
@@ -613,17 +598,6 @@ namespace Foody.DataAcess.Migrations
                         .HasForeignKey("ShoppingCartId");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Foody.Model.Models.ShoppingCart", b =>
-                {
-                    b.HasOne("Foody.Model.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -677,6 +651,11 @@ namespace Foody.DataAcess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Foody.Model.Models.Address", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("Foody.Model.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -694,8 +673,15 @@ namespace Foody.DataAcess.Migrations
                     b.Navigation("OrderItems");
                 });
 
+            modelBuilder.Entity("Foody.Model.Models.Product", b =>
+                {
+                    b.Navigation("OrderItems");
+                });
+
             modelBuilder.Entity("Foody.Model.Models.ShoppingCart", b =>
                 {
+                    b.Navigation("Customers");
+
                     b.Navigation("Products");
                 });
 #pragma warning restore 612, 618

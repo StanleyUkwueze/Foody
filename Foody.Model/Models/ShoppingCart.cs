@@ -15,10 +15,10 @@ namespace Foody.Model.Models
         }
         public int Id { get; set; }
         public int ItemsCount { get; set; }
-        public string  CustomerId { get; set; }
         public decimal TotalPrice { get; set; }
-        [ForeignKey("CustomerId")]
-        public Customer Customer { get; set; }
+        public string CustomerId { get; set; } 
+        //[ForeignKey("CustomerId")]
+        public Customer Customers { get; set; }
         public List<Product> Products { get; set; }
     }
 }

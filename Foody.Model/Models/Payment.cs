@@ -14,7 +14,7 @@ namespace Foody.Model.Models
         public decimal Amount { get; set; }
         public string PaymentMethod { get; set; }
         public int  OrderId { get; set; }
-        [ForeignKey("OrderId")]
+        //[ForeignKey("OrderId")]
         public Order Order { get; set; }
     }
 }

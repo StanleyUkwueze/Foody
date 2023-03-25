@@ -1084,6 +1084,7 @@
         "dependencies": {
           "AutoMapper": "12.0.1",
           "Foody.DTOs": "1.0.0",
+          "Foody.DataAcess": "1.0.0",
           "Foody.Model": "1.0.0"
         },
         "compile": {
@@ -2660,6 +2661,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Foody.Commons >= 1.0.0",
+      "Foody.DTOs >= 1.0.0",
       "Foody.DataAcess >= 1.0.0",
       "Foody.Model >= 1.0.0",
       "Foody.Service >= 1.0.0",
@@ -2705,6 +2707,9 @@
             },
             "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DataAcess\\Foody.DataAcess.csproj": {
               "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DataAcess\\Foody.DataAcess.csproj"
+            },
+            "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DTOs\\Foody.DTOs.csproj": {
+              "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DTOs\\Foody.DTOs.csproj"
             },
             "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj": {
               "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj"

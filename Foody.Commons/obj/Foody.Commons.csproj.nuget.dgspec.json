@@ -353,6 +353,9 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DataAcess\\Foody.DataAcess.csproj": {
+                "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DataAcess\\Foody.DataAcess.csproj"
+              },
               "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DTOs\\Foody.DTOs.csproj": {
                 "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DTOs\\Foody.DTOs.csproj"
               },

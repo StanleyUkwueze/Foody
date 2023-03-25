@@ -1,6 +1,7 @@
 ﻿using Foody.Model.Models;
 using Foody.Model.Settings;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,11 +18,13 @@ namespace Foody.Service.JWT
     {
         private readonly UserManager<Customer> _userManager;
         private readonly JWTData _jWTData;
+        private readonly IConfiguration _config;
 
-        public JWTService(UserManager<Customer> userManager, IOptions<JWTData> options)
+        public JWTService(UserManager<Customer> userManager, IOptions<JWTData> options, IConfiguration config)
         {
             _userManager = userManager;
             _jWTData = options.Value;
+            _config = config;
         }
 
         public async Task<string> GenerateJwtToken(Customer customer)
@@ -41,7 +44,7 @@ namespace Foody.Service.JWT
                 claims.Add( new Claim(ClaimTypes.Role, role));
             }
 
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jWTData.SecretKey));
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("JWT:Key").Value));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

@@ -11,7 +11,7 @@ namespace Foody.Model.Settings
         public const string Data = "JWTConfigurations";
         public TimeSpan TokenLifeTime { get; set; }
 
-        public string SecretKey { get; set; }
+        public string Key { get; set; }
 
         public string Issuer { get; set; }
 

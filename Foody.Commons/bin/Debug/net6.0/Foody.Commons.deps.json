@@ -573,6 +573,7 @@
         "dependencies": {
           "AutoMapper": "12.0.1",
           "Foody.DTOs": "1.0.0",
+          "Foody.DataAcess": "1.0.0",
           "Foody.Model": "1.0.0"
         },
         "runtime": {

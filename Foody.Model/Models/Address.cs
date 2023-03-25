@@ -17,10 +17,10 @@ namespace Foody.Model.Models
         public string ZipCode { get; set; }
         public int CheckoutId { get; set; }
         public string CustomerId { get; set; }
-        [ForeignKey("CustomerId")]
+       // [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
-        [ForeignKey("CheckoutId")]
-        public CheckOut CheckOut { get; set; }
+       // [ForeignKey("CheckoutId")]
+        public List<Order> Orders { get; set; }
 
 
     }

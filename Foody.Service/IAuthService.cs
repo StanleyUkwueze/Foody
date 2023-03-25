@@ -1,4 +1,5 @@
 ﻿using Foody.DTOs;
+using Foody.Model.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace Foody.Service
 {
     public interface IAuthService
     {
-        Task<Response<LoginResponseDto>> Login(string email, string password);
-        Task<Response<string>> Register(RegisterDto model, string scheme, IUrlHelper url);
+        Task<LoginResponseDto> Login(LoginRequestDto model);
+        Task<Response<RegisterResponseDto>> Register(RegisterDto model, string scheme, IUrlHelper url);
         Task<bool> ConfirmEmail(string userid, string token);
 
         Task<bool> SendResetPasswordLink(string email, IUrlHelper url, string scheme);

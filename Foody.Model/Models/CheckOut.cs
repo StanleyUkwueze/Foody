@@ -13,8 +13,9 @@ namespace Foody.Model.Models
         public DateTime CheckOutDate { get; set; }
         public string PaymentMethod { get; set; }
         public decimal TotalPrice { get; set; }
-        public int AddressId { get; set; }
-        [ForeignKey("AddressId")]
-        public Address ShipingAddress { get; set; }
+        public int OrderId { get; set; }
+        [ForeignKey("OrderId")]
+        public Order Order { get; set; }
+     
     }
 }

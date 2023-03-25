@@ -22,5 +22,12 @@ namespace Foody.Controllers
             var result = await _authService.Register(model, Request.Scheme, Url);
             return Ok(result);
         }
+
+        [HttpPost("sign-In")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto model)
+        {
+            var result = await _authService.Login(model);
+            return Ok(result);
+        }
     }
 }

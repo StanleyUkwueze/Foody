@@ -16,8 +16,10 @@ namespace Foody.Model.Models
         public string ImageUrl { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
+        // public ShoppingCart ShoppingCart { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
         public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
+        //[ForeignKey("CategoryId")]
         public Category Category { get; set; }
     }
 }

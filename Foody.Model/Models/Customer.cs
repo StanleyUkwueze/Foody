@@ -25,12 +25,11 @@ namespace Foody.Model.Models
         public string? LastName { get; set; }
 
         public string? Gender { get; set; }
-
         public string? AvatarUrl { get; set; }
-        public int ShoppingCartId { get; set; }
-        [ForeignKey("ShoppingCartId")]
-        public ShoppingCart ShoppingCart { get; set; }
-        public List<Address> Addresses { get; set; }
-        public List<Order> Orders { get; set; }
+        public int? ShoppingCartId { get; set; }
+        //[ForeignKey("ShoppingCartId")]
+        public List<ShoppingCart>? ShoppingCart { get; set; }
+        public List<Address>? Addresses { get; set; }
+        public List<Order>? Orders { get; set; }
     }
 }

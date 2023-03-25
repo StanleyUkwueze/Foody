@@ -87,7 +87,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
- //SeedUser.AddUser(db, userMgr).Wait();
+ SeedUser.AddUser(db, userMgr).Wait();
+
+//CategorySeeder.AddCategories(db).Wait();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
