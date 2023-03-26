@@ -1,7 +1,8 @@
 ﻿using Foody.DataAcess.CategoryRepository;
 using Foody.DataAcess.Repository;
 using Foody.DataAcess.UnitOfWork;
-using Foody.Service;
+using Foody.Service.Implementations;
+using Foody.Service.Interfaces;
 using Foody.Service.JWT;
 using Microsoft.Extensions.DependencyInjection;
 using System;

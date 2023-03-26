@@ -23,10 +23,10 @@ namespace Foody.DataAcess.Repository
             Save();
         }
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
             IQueryable<T> query = dbSet.AsQueryable();
-            return query.ToList();
+            return query;
         }
 
         public T GetFirstOrDefauly(Expression<Func<T, bool>>? filter = null)

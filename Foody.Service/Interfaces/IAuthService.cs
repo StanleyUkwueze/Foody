@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Foody.Service
+namespace Foody.Service.Interfaces
 {
     public interface IAuthService
     {

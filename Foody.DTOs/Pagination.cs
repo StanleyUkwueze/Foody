@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Foody.Commons.Helpers
+namespace Foody.DTOs
 {
     public static class Pagination
     {

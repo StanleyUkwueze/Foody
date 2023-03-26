@@ -14,6 +14,9 @@ namespace Foody.Commons.Helpers.Profiles
         public MapperProfile()
         {
             CreateMap<RegisterDto, Customer>();
+            CreateMap<Category, CategoryResponseDto>();
+            CreateMap<Product, ProductResponseDto>();
+            CreateMap<PagedResponse<Product>, PagedResponse<ProductResponseDto>>();
         }
     }
 }

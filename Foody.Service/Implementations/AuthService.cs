@@ -2,6 +2,7 @@
 using Foody.DataAcess;
 using Foody.DTOs;
 using Foody.Model.Models;
+using Foody.Service.Interfaces;
 using Foody.Service.JWT;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,7 +17,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Foody.Service
+namespace Foody.Service.Implementations
 {
     public class AuthService : IAuthService
     {
@@ -33,7 +34,7 @@ namespace Foody.Service
             _jwtService = serviceProvider.GetRequiredService<IJWTService>();
             _userManager = serviceProvider.GetRequiredService<UserManager<Customer>>();
             _mapper = serviceProvider.GetRequiredService<IMapper>();
-            _context= serviceProvider.GetRequiredService<AppDbContext>();
+            _context = serviceProvider.GetRequiredService<AppDbContext>();
             // _mailService = serviceProvider.GetRequiredService<IMailService>();
             _signInManager = signInManager;
 
@@ -63,10 +64,10 @@ namespace Foody.Service
                 var res = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                 if (res.Succeeded)
                 {
-                    var roles = await _userManager.GetRolesAsync(user);
+                    //var roles = await _userManager.GetRolesAsync(user);
 
                     var token = await _jwtService.GenerateJwtToken(user);
-                   
+
 
                     return new LoginResponseDto { Id = user.Id, Status = true, Token = token, Message = "Successfully loged In!" };
                 }
@@ -75,7 +76,7 @@ namespace Foody.Service
                 return new LoginResponseDto
                 {
                     Status = false,
-                     Message = "Sign in Failed! Check your credentials and try again."
+                    Message = "Sign in Failed! Check your credentials and try again."
                 };
             }
 
@@ -91,23 +92,9 @@ namespace Foody.Service
             var checkuser = await _userManager.FindByEmailAsync(model.Email);
             if (checkuser != null) throw new BadHttpRequestException("user with the email already exist");
 
-            var customer = new Customer
-            {
-                UserName = model.Email,
-                FirstName = model.FirstName,
-                LastName  = model.LastName,
-                Email = model.Email,
-                Gender = model.Gender,
+            var customer = _mapper.Map<RegisterDto, Customer>(model);
 
-            };
-
-      
-                //_mapper.Map<RegisterDto,Customer>(model);
-
-            //create a new shopping cart
-           
             var result = await _userManager.CreateAsync(customer, model.Password);
-            
 
             if (!result.Succeeded)
             {
@@ -118,16 +105,16 @@ namespace Foody.Service
             //encode the token
             //validate the token
 
-          
+
             var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(customer);
             var encodedToken = Encoding.UTF8.GetBytes(emailConfirmationToken);
             var validToken = WebEncoders.Base64UrlEncode(encodedToken);
-            
+
             var urlToBeSentTocustomer = url.Action("ConfirmEmail", "Account", new { token = validToken, email = customer.Email }, scheme);
 
             //send the mail here
             //if email failed to send, then delete cutomer from db
-        
+
             response.StatusCode = (int)HttpStatusCode.Created;
             response.Message = "Registration successful";
             response.IsSuccessful = true;

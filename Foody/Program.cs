@@ -9,9 +9,10 @@ using Foody.DataAcess.CategoryRepository;
 using Foody.DataAcess.Repository;
 using Foody.DataAcess.UnitOfWork;
 using Foody.Service.JWT;
-using Foody.Service;
 using AutoMapper;
 using Foody.Commons.Helpers.Profiles;
+using Foody.Service.Interfaces;
+using Foody.Service.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +31,11 @@ builder.Services.AddIdentity<Customer, IdentityRole>(options => {
 
 builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-builder.Services.AddScoped<UnitOfWork>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
 //builder.Services.AddScoped<IMapper>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IAuthService, AuthService>();

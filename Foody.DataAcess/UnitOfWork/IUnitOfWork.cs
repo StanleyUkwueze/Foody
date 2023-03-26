@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Foody.DataAcess.UnitOfWork
 {
-    internal interface IUnitOfWork: IDisposable
+    public interface IUnitOfWork: IDisposable
     {
         ICategoryRepo CategoryRepo { get; }
         IProductRepo ProductRepo { get; }

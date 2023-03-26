@@ -14,7 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Foody.DataAcess\Foody.DataAcess.csproj" />
     <ProjectReference Include="..\Foody.DTOs\Foody.DTOs.csproj" />
-    <ProjectReference Include="..\Foody.Service\Foody.Service.csproj" />
   </ItemGroup>
 
 </Project>

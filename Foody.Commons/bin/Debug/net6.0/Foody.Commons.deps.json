@@ -11,7 +11,6 @@
           "AutoMapper": "12.0.1",
           "Foody.DTOs": "1.0.0",
           "Foody.DataAcess": "1.0.0",
-          "Foody.Service": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
         },
         "runtime": {
@@ -568,17 +567,6 @@
         "runtime": {
           "Foody.Model.dll": {}
         }
-      },
-      "Foody.Service/1.0.0": {
-        "dependencies": {
-          "AutoMapper": "12.0.1",
-          "Foody.DTOs": "1.0.0",
-          "Foody.DataAcess": "1.0.0",
-          "Foody.Model": "1.0.0"
-        },
-        "runtime": {
-          "Foody.Service.dll": {}
-        }
       }
     }
   },
@@ -963,11 +951,6 @@
       "sha512": ""
     },
     "Foody.Model/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Foody.Service/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

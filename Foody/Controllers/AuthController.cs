@@ -1,5 +1,5 @@
 ﻿using Foody.DTOs;
-using Foody.Service;
+using Foody.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

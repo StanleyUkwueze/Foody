@@ -11,7 +11,7 @@ namespace Foody.DataAcess.Repository
     {
        void Add(T entity);
        Task<bool> Save();
-       IEnumerable<T> GetAll();
+       IQueryable<T> GetAll();
        T GetFirstOrDefauly(Expression<Func<T, bool>>? filter = null);
        Task<bool> Remove(T entity);
        Task<bool> RemoveRange(IEnumerable<T> entity);
