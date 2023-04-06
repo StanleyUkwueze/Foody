@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Foody.Commons;
 using Foody.DataAcess;
 using Foody.DTOs;
 using Foody.Model.Models;
@@ -15,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace Foody.Service.Implementations
@@ -25,11 +27,11 @@ namespace Foody.Service.Implementations
         private readonly IJWTService _jwtService;
         private readonly IMapper _mapper;
         private readonly AppDbContext _context;
-        //private readonly IMailService _mailService;
+        private readonly IMailService _mailService;
         private readonly SignInManager<Customer> _signInManager;
 
 
-        public AuthService(IServiceProvider serviceProvider, SignInManager<Customer> signInManager)
+        public AuthService(IServiceProvider serviceProvider, SignInManager<Customer> signInManager, IMailService mailService)
         {
             _jwtService = serviceProvider.GetRequiredService<IJWTService>();
             _userManager = serviceProvider.GetRequiredService<UserManager<Customer>>();
@@ -37,11 +39,27 @@ namespace Foody.Service.Implementations
             _context = serviceProvider.GetRequiredService<AppDbContext>();
             // _mailService = serviceProvider.GetRequiredService<IMailService>();
             _signInManager = signInManager;
-
+            _mailService = mailService;
         }
-        public Task<bool> ConfirmEmail(string userid, string token)
+        public async Task<bool> ConfirmEmail(string useremail, string token)
         {
-            throw new NotImplementedException();
+            Customer user = await _userManager.FindByEmailAsync(useremail);
+            if (user == null)
+            {
+                throw new AccessViolationException("Access Denied");
+            }
+
+            var decodedToken = WebEncoders.Base64UrlDecode(token);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            IdentityResult result = await _userManager.ConfirmEmailAsync(user, normalToken);
+
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+
+            return true;
         }
 
 
@@ -110,10 +128,21 @@ namespace Foody.Service.Implementations
             var encodedToken = Encoding.UTF8.GetBytes(emailConfirmationToken);
             var validToken = WebEncoders.Base64UrlEncode(encodedToken);
 
-            var urlToBeSentTocustomer = url.Action("ConfirmEmail", "Account", new { token = validToken, email = customer.Email }, scheme);
+            var urlToBeSentTocustomer = url.Action("ConfirmEmail", "Auth", new { token = validToken, email = customer.Email }, scheme);
 
             //send the mail here
             //if email failed to send, then delete cutomer from db
+            var name = $"{model.FirstName} {model.LastName}";
+            var res = await SendMailAsync(model.Email, "Email Confirmation", $"Kindly click the link to confirm your email <a href=`{HtmlEncoder.Default.Encode(urlToBeSentTocustomer)}`>Click here</a>");
+
+            if (!res)
+            {
+               await _userManager.DeleteAsync(customer);
+                response.Message = "Mail not confirmed";
+                response.IsSuccessful = false;
+
+                return response;
+            }
 
             response.StatusCode = (int)HttpStatusCode.Created;
             response.Message = "Registration successful";
@@ -134,6 +163,21 @@ namespace Foody.Service.Implementations
         public Task<bool> SendResetPasswordLink(string email, IUrlHelper url, string scheme)
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<bool> SendMailAsync(string recipientmail, string subject, string body )
+        {
+            var mailrequest = new MailRequest
+            {
+               // Name = name,
+                Subject = subject,
+                Body = body,
+              //  Link = link,
+                RecipientMail = recipientmail
+
+            };
+            await _mailService.SendEmailAsync(recipientmail, subject, body);
+            return true;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Foody.DataAcess.Repository;
+using Foody.DTOs;
 using Foody.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,8 @@ namespace Foody.DataAcess.CategoryRepository
     {
         void Update(Product product);
         Task<Product> GetProductByName(string prodName);
+       // IQueryable<Product> Search(string query);
+
+        IQueryable<Product> Search(string searchTerm);
     }
 }

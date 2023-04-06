@@ -19,6 +19,7 @@
 
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Foody.DTOs\Foody.DTOs.csproj" />
 	  <ProjectReference Include="..\Foody.Model\Foody.Model.csproj" />
 	</ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using Foody.Service.Interfaces;
+﻿using Foody.DTOs;
+using Foody.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,10 +29,23 @@ namespace Foody.Controllers
             return Ok(cat);
         }
         [HttpGet("GetAllCategories")]
-        public IActionResult GetAllCategories()
+        public IActionResult GetAllCategories(SearchParameter searchQuery)
         {
-            var cat = _categoryService.GetAllCategories();
+            var cat = _categoryService.GetAllCategories(searchQuery);
             return Ok(cat);
+        }
+        [HttpPost("Add-Category")]
+        public IActionResult AddCategory(AddCategoryDto categoryDto)
+        {
+            var result = _categoryService.AddCategory(categoryDto);
+            return Ok(result);
+        }
+
+        [HttpDelete("delete-category/{id}")]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            var result = await _categoryService.DeleteCategory(id);
+            return Ok(result);
         }
     }
 }

@@ -29,5 +29,13 @@ namespace Foody.Controllers
             var result = await _authService.Login(model);
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(ConfirmEmailDto confirmemail)
+        {
+            await _authService.ConfirmEmail(confirmemail.Email, confirmemail.Token);
+            return NoContent();
+        }
     }
 }

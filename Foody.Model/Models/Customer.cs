@@ -23,7 +23,7 @@ namespace Foody.Model.Models
 
         [StringLength(maximumLength: 50, ErrorMessage = "The property should not have more than {1} characters")]
         public string? LastName { get; set; }
-
+        public string publicId { get; set; }
         public string? Gender { get; set; }
         public string? AvatarUrl { get; set; }
         public int? ShoppingCartId { get; set; }

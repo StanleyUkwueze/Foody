@@ -21,9 +21,36 @@ namespace Foody.Service.Implementations
             _mapper = mapper;   
         }
 
-        public PagedResponse<CategoryResponseDto> GetAllCategories()
+        public Response<CategoryResponseDto> AddCategory(AddCategoryDto categoryDto)
         {
-            var categories = _unitOfWork.CategoryRepo.GetAll().Paginate(1, 3);
+            Response<CategoryResponseDto> response = new Response<CategoryResponseDto>();
+
+            if (categoryDto == null) 
+                return new Response<CategoryResponseDto> { IsSuccessful = false, Message = "Please, provide the category you want to add" };
+
+            var catToAdd = _mapper.Map<AddCategoryDto, Category>(categoryDto);
+
+            _unitOfWork.CategoryRepo.Add(catToAdd);
+            response.Message = "Category added successfully";
+            response.IsSuccessful = true;
+            response.StatusCode = 201;
+
+            return response;
+        }
+
+
+
+        public async Task<Response<string>> DeleteCategory(int Id)
+        {
+            var catToDelete = _unitOfWork.CategoryRepo.GetFirstOrDefauly(x => x.Id == Id);
+            if (catToDelete == null) return new Response<string> { Message = " Category does not exist", IsSuccessful = false };
+          await  _unitOfWork.CategoryRepo.Remove(catToDelete);
+            return new Response<string> { Message = "Category successfully deleted", IsSuccessful = true };
+        }
+
+        public PagedResponse<CategoryResponseDto> GetAllCategories(SearchParameter searchQuery)
+        {
+            var categories = _unitOfWork.CategoryRepo.GetAll().Paginate(searchQuery.PageNumber, searchQuery.PageSize);
             var catsToReturn = _mapper.Map<PagedResponse<CategoryResponseDto>>(categories);
 
             return catsToReturn;

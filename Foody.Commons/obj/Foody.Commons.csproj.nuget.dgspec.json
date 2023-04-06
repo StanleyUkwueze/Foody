@@ -110,6 +110,9 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DTOs\\Foody.DTOs.csproj": {
+                "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DTOs\\Foody.DTOs.csproj"
+              },
               "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj": {
                 "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj"
               }

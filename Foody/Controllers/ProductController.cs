@@ -1,4 +1,5 @@
-﻿using Foody.Service.Interfaces;
+﻿using Foody.DTOs;
+using Foody.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,11 +28,35 @@ namespace Foody.Controllers
             var cat = _productService.GetProductById(id);
             return Ok(cat);
         }
-        [HttpGet("GetAllProducts")]
-        public IActionResult GetAllProducts()
+        [HttpPost("GetAllProducts")]
+        public IActionResult GetAllProducts(SearchParameter searchQuery)
         {
-            var products = _productService.GetAllProducts();
+            if(searchQuery.PageSize <= 0) searchQuery.PageSize = 10;
+            if (searchQuery.PageNumber <= 0) searchQuery.PageNumber = 1;
+            var products = _productService.GetAllProducts(searchQuery);
             return Ok(products);
+        }
+
+        [HttpPost("Add-Product")]
+        public async Task<IActionResult> AddProduct(AddProductDto productDto)
+        {
+            var result = await _productService.AddProduct(productDto);
+            return Ok(result);
+        }
+
+
+        [HttpDelete("delete-product/{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var result = await _productService.DeleteProduct(id);
+            return Ok(result);
+        }
+
+        [HttpPost("search")]
+        public IActionResult SearchProducts(SearchParameter query)
+        {
+            var result = _productService.GetFilterdProducts(query);
+            return Ok(result);
         }
     }
 }

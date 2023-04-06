@@ -910,6 +910,16 @@
           }
         }
       },
+      "Foody.DTOs/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Foody.DTOs.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Foody.DTOs.dll": {}
+        }
+      },
       "Foody.Model/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -2325,6 +2335,11 @@
         "version.txt"
       ]
     },
+    "Foody.DTOs/1.0.0": {
+      "type": "project",
+      "path": "../Foody.DTOs/Foody.DTOs.csproj",
+      "msbuildProject": "../Foody.DTOs/Foody.DTOs.csproj"
+    },
     "Foody.Model/1.0.0": {
       "type": "project",
       "path": "../Foody.Model/Foody.Model.csproj",
@@ -2334,6 +2349,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "BCrypt.Net-Next >= 4.0.3",
+      "Foody.DTOs >= 1.0.0",
       "Foody.Model >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.14",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.14",
@@ -2376,6 +2392,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DTOs\\Foody.DTOs.csproj": {
+              "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DTOs\\Foody.DTOs.csproj"
+            },
             "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj": {
               "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj"
             }

@@ -11,18 +11,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Foody.Commons.Extensions
+namespace Foody.Service
 {
     public static class ServiceExtensions
     {
-        public static void AddServices(this IServiceCollection service)
-        {
-            service.AddScoped<IJWTService, JWTService>();
-            service.AddScoped<IProductRepo, ProductRepo>();
-            service.AddScoped<ICategoryRepo, CategoryRepo>();
-            service.AddScoped<UnitOfWork>();
-            service.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            service.AddScoped<IAuthService,AuthService>();
+        public static void AddServices(this IServiceCollection Services)
+         {
+                Services.AddScoped<IJWTService, JWTService>();
+                Services.AddScoped<IProductRepo, ProductRepo>();
+                Services.AddScoped<IProductService, ProductService>();
+                Services.AddScoped<ICategoryRepo, CategoryRepo>();
+                Services.AddScoped<ICategoryService, CategoryService>();
+                Services.AddScoped<IUnitOfWork, UnitOfWork>();
+                Services.AddScoped<IMailService, MailService>();
+                Services.AddScoped<IphotoService, PhotoService>();
+                Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+                Services.AddScoped<IAuthService, AuthService>();
+                Services.AddScoped<IUserService, UserService>();
         }
     }
 }

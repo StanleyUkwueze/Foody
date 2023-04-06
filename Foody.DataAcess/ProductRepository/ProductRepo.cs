@@ -1,4 +1,5 @@
 ﻿using Foody.DataAcess.Repository;
+using Foody.DTOs;
 using Foody.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,6 +17,31 @@ namespace Foody.DataAcess.CategoryRepository
         {
             _context = context;
         }
+
+        public IQueryable<Product> Search(string searchTerm)
+        {
+            var products = _context.Products.Include(x=>x.Category).AsQueryable();
+            //if (string.IsNullOrWhiteSpace(searchTerm))
+            //    return employees;
+            var lowerCaseTerm = searchTerm.Trim().ToLower();
+            products = products.Where(e => e.Name.ToLower().Contains(lowerCaseTerm) 
+                                    || e.Description.ToLower().Contains(lowerCaseTerm) 
+                                    || e.Category.Name.ToLower().Contains(lowerCaseTerm)
+                                    || e.Category.Description.ToLower().Contains(lowerCaseTerm));
+            return products;
+        }
+
+            //public IQueryable<Product> GetFilterdProductss(string query )
+            //{
+            //    var res = _context.Products.Include(b => b.Category).Where(x => 
+            //                          EF.Functions.Like(x.Name, $"%{query}%")
+            //                       || EF.Functions.Like(x.Description, $"%{query}%")
+            //                       || EF.Functions.Like(x.Category.Description, $"%{query}%")
+            //                       || EF.Functions.Like(x.Category.Name, $"%{query}%"))
+            //                        .AsQueryable();
+            //    return res;
+            //}
+      
 
         public async Task<Product> GetProductByName(string prodName)
         {

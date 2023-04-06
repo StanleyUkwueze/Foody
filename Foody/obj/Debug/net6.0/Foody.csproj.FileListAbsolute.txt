@@ -79,3 +79,8 @@ C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.Service.pdb
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.DTOs.pdb
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.Commons.dll
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Foody.Commons.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\MailKit.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\MimeKit.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\Mailjet.Client.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody\bin\Debug\net6.0\CloudinaryDotNet.dll

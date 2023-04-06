@@ -13,6 +13,8 @@ using AutoMapper;
 using Foody.Commons.Helpers.Profiles;
 using Foody.Service.Interfaces;
 using Foody.Service.Implementations;
+using Foody.Service;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,16 +31,7 @@ builder.Services.AddIdentity<Customer, IdentityRole>(options => {
     //others....
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IJWTService, JWTService>();
-builder.Services.AddScoped<IProductRepo, ProductRepo>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
-
-//builder.Services.AddScoped<IMapper>();
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IAuthService, AuthService>();
+ServiceExtensions.AddServices(builder.Services);
 
 var mapperConfig = new MapperConfiguration(mc =>
 {
@@ -95,7 +88,7 @@ if (app.Environment.IsDevelopment())
 
 //CategorySeeder.AddCategories(db).Wait();
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

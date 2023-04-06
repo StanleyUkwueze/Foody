@@ -3,10 +3,6 @@ using Foody.DataAcess.UnitOfWork;
 using Foody.DTOs;
 using Foody.Model.Models;
 using Foody.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Foody.Service.Implementations
@@ -21,11 +17,59 @@ namespace Foody.Service.Implementations
             _mapper = mapper;   
         }
 
-        public PagedResponse<ProductResponseDto> GetAllProducts()
+        public async Task<Response<ProductResponseDto>> AddProduct(AddProductDto productDto)
         {
-            var Products = _unitOfWork.ProductRepo.GetAll().Paginate(1,10);
+            Response<ProductResponseDto> response = new Response<ProductResponseDto>();
+
+            if (productDto == null) return new Response<ProductResponseDto> { Data = null, IsSuccessful = false, Message = "Kindly provide data needed" };
+           
+
+            var productId =  _unitOfWork.CategoryRepo.GetFirstOrDefauly(x => x.Name == productDto.CategoryName);
+
+            if (productId != null)
+            {
+                var productToAdd =  _mapper.Map<AddProductDto, Product>(productDto);
+                productToAdd.CategoryId = productId.Id;
+
+               await _unitOfWork.ProductRepo.Add(productToAdd);
+
+                response.IsSuccessful = true;
+                response.Message = "Product Added successfully";
+                return response;
+
+            }
+
+            response.IsSuccessful = false;
+            response.Message = "Category name does not exist";
+            return response;
+
+        }
+
+        public async Task<Response<string>> DeleteProduct(int Id)
+        {
+            var productToDelete = _unitOfWork.ProductRepo.GetFirstOrDefauly(x => x.Id == Id);
+            if(productToDelete != null)
+            {
+               await _unitOfWork.ProductRepo.Remove(productToDelete);
+                return new Response<string> { IsSuccessful = true, Message = "Product deleted successfully" };
+            }
+
+              return new Response<string> { IsSuccessful = false, Message = "Oops!! Product does not exist" }; 
+        }
+
+        public PagedResponse<ProductResponseDto> GetAllProducts(SearchParameter searchQuery)
+        {
+            var Products = _unitOfWork.ProductRepo.GetAll().Paginate(searchQuery.PageNumber, searchQuery.PageSize);
             var ProductToReturn = _mapper.Map<PagedResponse<ProductResponseDto>>(Products);
 
+            return ProductToReturn;
+        }
+
+        public PagedResponse<ProductResponseDto> GetFilterdProducts(SearchParameter query)
+        {
+            var result = _unitOfWork.ProductRepo.Search(query.Query).Paginate(query.PageNumber, query.PageSize);
+
+            var ProductToReturn = _mapper.Map<PagedResponse<ProductResponseDto>>(result);
             return ProductToReturn;
         }
 
@@ -44,5 +88,6 @@ namespace Foody.Service.Implementations
             var ProductToreturn = _mapper.Map<ProductResponseDto>(Product);
             return ProductToreturn;
         }
+
     }
 }

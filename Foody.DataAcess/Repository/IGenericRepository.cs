@@ -9,7 +9,7 @@ namespace Foody.DataAcess.Repository
 {
     public interface IGenericRepository<T> where T : class
     {
-       void Add(T entity);
+        Task Add(T entity);
        Task<bool> Save();
        IQueryable<T> GetAll();
        T GetFirstOrDefauly(Expression<Func<T, bool>>? filter = null);

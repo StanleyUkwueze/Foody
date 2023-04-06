@@ -13,6 +13,9 @@ namespace Foody.Service.Interfaces
     {
         Task<ProductResponseDto> GetProductByName(string categoryName);
         ProductResponseDto GetProductById(int Id);
-        PagedResponse<ProductResponseDto> GetAllProducts();
+        PagedResponse<ProductResponseDto> GetAllProducts(SearchParameter searchQuery);
+        Task<Response<string>> DeleteProduct(int Id);
+        PagedResponse<ProductResponseDto> GetFilterdProducts(SearchParameter query);
+        Task<Response<ProductResponseDto>> AddProduct(AddProductDto productDto);
     }
 }

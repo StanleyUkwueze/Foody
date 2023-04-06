@@ -17,10 +17,10 @@ namespace Foody.DataAcess.Repository
             _context = context;
             dbSet = _context.Set<T>();
         }
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
             dbSet.Add(entity);
-            Save();
+           await Save();
         }
 
         public IQueryable<T> GetAll()

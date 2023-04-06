@@ -13,7 +13,7 @@ namespace Foody.Service.Interfaces
     {
         Task<LoginResponseDto> Login(LoginRequestDto model);
         Task<Response<RegisterResponseDto>> Register(RegisterDto model, string scheme, IUrlHelper url);
-        Task<bool> ConfirmEmail(string userid, string token);
+        Task<bool> ConfirmEmail(string userEmail, string token);
 
         Task<bool> SendResetPasswordLink(string email, IUrlHelper url, string scheme);
 
