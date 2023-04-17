@@ -153,6 +153,7 @@ namespace Foody.DataAcess.CartRepository
                 Message = "Item Removed Successfully",
                 Data = GetCartItemCount(userId),
                 IsSuccessful = true,
+                StatusCode = 200
             };
 
         }
