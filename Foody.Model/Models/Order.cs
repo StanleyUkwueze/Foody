@@ -18,9 +18,10 @@ namespace Foody.Model.Models
         public string CustomerId { get; set; }
         public int CheckOutId { get; set; }
         public int AddressId { get; set; }
-       // [ForeignKey("AddressId")]
+        public int OrderStatusId { get; set; }
+        public bool IsDeleted { get; set; } = false;
+        public OrderStatus OrderStatus { get; set; }
         public Address ShippingAddress { get; set; }
-       // [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
         [ForeignKey("CheckOutId")]
         public CheckOut CheckOut { get; set; }

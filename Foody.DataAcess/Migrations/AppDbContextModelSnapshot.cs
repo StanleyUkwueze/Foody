@@ -64,6 +64,39 @@ namespace Foody.DataAcess.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("Foody.Model.Models.CartDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartId");
+
+                    b.ToTable("CartDetails");
+                });
+
             modelBuilder.Entity("Foody.Model.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -227,8 +260,14 @@ namespace Foody.DataAcess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderStatusId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -237,6 +276,8 @@ namespace Foody.DataAcess.Migrations
                     b.HasIndex("CheckOutId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderStatusId");
 
                     b.ToTable("Orders");
                 });
@@ -252,6 +293,9 @@ namespace Foody.DataAcess.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -265,6 +309,27 @@ namespace Foody.DataAcess.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("Foody.Model.Models.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StatusName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderStatus");
                 });
 
             modelBuilder.Entity("Foody.Model.Models.Payment", b =>
@@ -304,6 +369,9 @@ namespace Foody.DataAcess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateCreated")
@@ -351,11 +419,9 @@ namespace Foody.DataAcess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ItemsCount")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -508,6 +574,25 @@ namespace Foody.DataAcess.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("Foody.Model.Models.CartDetail", b =>
+                {
+                    b.HasOne("Foody.Model.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Foody.Model.Models.ShoppingCart", "ShoppingCart")
+                        .WithMany("CartDetails")
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ShoppingCart");
+                });
+
             modelBuilder.Entity("Foody.Model.Models.CheckOut", b =>
                 {
                     b.HasOne("Foody.Model.Models.Order", "Order")
@@ -539,9 +624,17 @@ namespace Foody.DataAcess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Foody.Model.Models.OrderStatus", "OrderStatus")
+                        .WithMany()
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("CheckOut");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("OrderStatus");
 
                     b.Navigation("ShippingAddress");
                 });
@@ -684,6 +777,8 @@ namespace Foody.DataAcess.Migrations
 
             modelBuilder.Entity("Foody.Model.Models.ShoppingCart", b =>
                 {
+                    b.Navigation("CartDetails");
+
                     b.Navigation("Products");
                 });
 #pragma warning restore 612, 618

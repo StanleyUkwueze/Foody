@@ -23,7 +23,8 @@ namespace Foody.DataAcess
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-
+        public DbSet<CartDetail> CartDetails { get; set; }
+        public DbSet<OrderStatus> OrderStatus { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

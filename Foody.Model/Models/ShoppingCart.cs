@@ -14,10 +14,11 @@ namespace Foody.Model.Models
             Products = new List<Product>();
         }
         public int Id { get; set; }
-        public int ItemsCount { get; set; }
-        public decimal TotalPrice { get; set; }
-        public string CustomerId { get; set; } 
-        //[ForeignKey("CustomerId")]
+        //public int ItemsCount { get; set; }
+        //public decimal TotalPrice { get; set; }
+        public string Status { get; set; }
+        public string CustomerId { get; set; }
+        public List<CartDetail> CartDetails { get; set; }
         public Customer Customers { get; set; }
         public List<Product> Products { get; set; }
     }

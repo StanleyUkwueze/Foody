@@ -1,4 +1,5 @@
-﻿using Foody.DataAcess.CategoryRepository;
+﻿using Foody.DataAcess.CartRepository;
+using Foody.DataAcess.CategoryRepository;
 using Foody.DataAcess.Repository;
 using Foody.DataAcess.UnitOfWork;
 using Foody.Service.Implementations;
@@ -28,6 +29,7 @@ namespace Foody.Service
                 Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
                 Services.AddScoped<IAuthService, AuthService>();
                 Services.AddScoped<IUserService, UserService>();
+                Services.AddScoped<ICartRepo, CartRepo>();
         }
     }
 }
