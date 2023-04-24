@@ -10,3 +10,6 @@ C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Debug\net6.0\Foody.DTOs.dll
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Debug\net6.0\refint\Foody.DTOs.dll
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Debug\net6.0\Foody.DTOs.pdb
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Debug\net6.0\ref\Foody.DTOs.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\bin\Debug\net6.0\Foody.Model.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\bin\Debug\net6.0\Foody.Model.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Debug\net6.0\Foody.DTOs.csproj.CopyComplete

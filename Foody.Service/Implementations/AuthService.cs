@@ -112,6 +112,7 @@ namespace Foody.Service.Implementations
 
             var customer = _mapper.Map<RegisterDto, Customer>(model);
 
+            customer.publicId = "jjssdhhdhd";
             var result = await _userManager.CreateAsync(customer, model.Password);
 
             if (!result.Succeeded)

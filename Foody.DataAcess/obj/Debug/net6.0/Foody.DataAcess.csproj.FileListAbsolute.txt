@@ -2,7 +2,9 @@ C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.DataA
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.DataAcess.runtimeconfig.json
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.DataAcess.dll
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.DataAcess.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.DTOs.dll
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.Model.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.DTOs.pdb
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.Model.pdb
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\obj\Debug\net6.0\Foody.DataAcess.csproj.AssemblyReference.cache
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\obj\Debug\net6.0\Foody.DataAcess.GeneratedMSBuildEditorConfig.editorconfig
@@ -15,5 +17,3 @@ C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\obj\Debug\net6.0\refint\Food
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\obj\Debug\net6.0\Foody.DataAcess.pdb
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\obj\Debug\net6.0\Foody.DataAcess.genruntimeconfig.cache
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\obj\Debug\net6.0\ref\Foody.DataAcess.dll
-C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.DTOs.dll
-C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DataAcess\bin\Debug\net6.0\Foody.DTOs.pdb

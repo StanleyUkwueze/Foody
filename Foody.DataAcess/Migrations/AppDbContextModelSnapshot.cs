@@ -260,6 +260,12 @@ namespace Foody.DataAcess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("DateCancelled")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Delivered")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -268,6 +274,15 @@ namespace Foody.DataAcess.Migrations
 
                     b.Property<int>("OrderStatusId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Shipped")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -422,6 +437,9 @@ namespace Foody.DataAcess.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

@@ -107,7 +107,24 @@ namespace Foody.DataAcess.CartRepository
 
         public Response<string> ClearCart(int cartId)
         {
-            throw new NotImplementedException();
+            var cart = _context.ShoppingCarts.FirstOrDefault(x => x.Id == cartId);
+
+            if(cart != null)
+            {
+                if (cart.CartDetails.Count > 0)
+                {
+                    cart.CartDetails.RemoveRange(0, cart.CartDetails.Count);
+                    _context.SaveChanges();
+
+                    return new Response<string>
+                    { Message = "Cart successfully cleared", IsSuccessful = true, StatusCode = 200 };
+                }
+                return new Response<string>
+                { Message = "No item found on the cart", IsSuccessful = false, StatusCode = 204 };
+            }
+            return new Response<string>
+            { Message = "This is and empty cart", IsSuccessful = false, StatusCode = 400 };
+
         }
 
         public async Task<ShoppingCart> GetUserCart()
@@ -175,11 +192,12 @@ namespace Foody.DataAcess.CartRepository
                                     .Where(a => a.ShoppingCartId == cart.Id).ToList();
                 if (cartDetail.Count == 0)
                     throw new Exception("Cart is empty");
+                var cust = _userManager.FindByEmailAsync(userId).Result;
                 var order = new Order
                 {
                     CustomerId = userId,
                     OrderDate = DateTime.UtcNow,
-                    OrderStatusId = 1
+                    OrderStatusId = 1, 
                 };
                 _context.Orders.Add(order);
                 _context.SaveChanges();

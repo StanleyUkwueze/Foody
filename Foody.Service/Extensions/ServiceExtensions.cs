@@ -2,6 +2,7 @@
 using Foody.DataAcess.CategoryRepository;
 using Foody.DataAcess.Repository;
 using Foody.DataAcess.UnitOfWork;
+using Foody.DataAcess.UserOrderRepository;
 using Foody.Service.Implementations;
 using Foody.Service.Interfaces;
 using Foody.Service.JWT;
@@ -30,6 +31,7 @@ namespace Foody.Service
                 Services.AddScoped<IAuthService, AuthService>();
                 Services.AddScoped<IUserService, UserService>();
                 Services.AddScoped<ICartRepo, CartRepo>();
+                Services.AddScoped<IUserOrderRepo, UserOrderRepo>();
         }
     }
 }

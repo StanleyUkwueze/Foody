@@ -206,7 +206,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj": {
+                "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

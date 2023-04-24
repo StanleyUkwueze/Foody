@@ -15,7 +15,7 @@ namespace Foody.Model.Models
         }
         public int Id { get; set; }
         //public int ItemsCount { get; set; }
-        //public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public string Status { get; set; }
         public string CustomerId { get; set; }
         public List<CartDetail> CartDetails { get; set; }

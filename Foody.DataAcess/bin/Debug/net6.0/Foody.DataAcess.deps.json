@@ -530,6 +530,9 @@
         }
       },
       "Foody.DTOs/1.0.0": {
+        "dependencies": {
+          "Foody.Model": "1.0.0"
+        },
         "runtime": {
           "Foody.DTOs.dll": {}
         }
