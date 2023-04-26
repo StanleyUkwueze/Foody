@@ -7,6 +7,8 @@ namespace Foody.DataAcess.UserOrderRepository
     public interface IUserOrderRepo
     {
         Task<Response<Order>> PlaceOrderAsync(PlaceOrderRequestModel PlaceOrderRequestModel);
+        Task<Response<string>> MarkOrderAsDelivered(int orderId);
         Task<Response<string>> CancelOrder(int orderId);
+        Task<Order> GetUserOrderAsync(int orderId);
     }
 }

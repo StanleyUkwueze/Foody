@@ -15,11 +15,9 @@ namespace Foody.Model.Models
         public string Town { get; set; }
         public string Street { get; set; }
         public string ZipCode { get; set; }
-        public int CheckoutId { get; set; }
+       // public int CheckoutId { get; set; }
         public string CustomerId { get; set; }
-       // [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
-       // [ForeignKey("CheckoutId")]
         public List<Order> Orders { get; set; }
 
 

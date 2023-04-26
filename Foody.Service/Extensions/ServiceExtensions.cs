@@ -32,6 +32,7 @@ namespace Foody.Service
                 Services.AddScoped<IUserService, UserService>();
                 Services.AddScoped<ICartRepo, CartRepo>();
                 Services.AddScoped<IUserOrderRepo, UserOrderRepo>();
+                Services.AddScoped<IOrderService, OrderService>();
         }
     }
 }

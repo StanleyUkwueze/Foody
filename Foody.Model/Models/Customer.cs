@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Foody.Model.Models
@@ -28,8 +29,11 @@ namespace Foody.Model.Models
         public string? AvatarUrl { get; set; }
         public int? ShoppingCartId { get; set; }
         //[ForeignKey("ShoppingCartId")]
+        [JsonIgnore]
         public List<ShoppingCart>? ShoppingCart { get; set; }
+        [JsonIgnore]
         public List<Address>? Addresses { get; set; }
+        [JsonIgnore]
         public List<Order>? Orders { get; set; }
     }
 }

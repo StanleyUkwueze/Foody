@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Foody.Model.Models
@@ -14,7 +15,7 @@ namespace Foody.Model.Models
         public string PaymentMethod { get; set; }
         public decimal TotalPrice { get; set; }
         public int OrderId { get; set; }
-        [ForeignKey("OrderId")]
+        [JsonIgnore]
         public Order Order { get; set; }
      
     }

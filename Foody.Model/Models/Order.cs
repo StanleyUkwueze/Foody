@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Foody.Model.Models
@@ -33,8 +34,10 @@ namespace Foody.Model.Models
         public DateTime Shipped { get; set; }
         //public OrderStatus Status { get; set; }
         public OrderStatus OrderStatus { get; set; }
+        [JsonIgnore]
         public Address ShippingAddress { get; set; }
         public Customer Customer { get; set; }
+        [JsonIgnore]
         [ForeignKey("CheckOutId")]
         public CheckOut CheckOut { get; set; }
         public List<OrderItem> OrderItems { get; set; }

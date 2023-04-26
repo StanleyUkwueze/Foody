@@ -30,9 +30,6 @@ namespace Foody.DataAcess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CheckoutId")
-                        .HasColumnType("int");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -150,8 +147,6 @@ namespace Foody.DataAcess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("CheckOuts");
                 });
@@ -278,9 +273,6 @@ namespace Foody.DataAcess.Migrations
                     b.Property<DateTime>("Shipped")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -288,7 +280,8 @@ namespace Foody.DataAcess.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("CheckOutId");
+                    b.HasIndex("CheckOutId")
+                        .IsUnique();
 
                     b.HasIndex("CustomerId");
 
@@ -611,17 +604,6 @@ namespace Foody.DataAcess.Migrations
                     b.Navigation("ShoppingCart");
                 });
 
-            modelBuilder.Entity("Foody.Model.Models.CheckOut", b =>
-                {
-                    b.HasOne("Foody.Model.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Foody.Model.Models.Order", b =>
                 {
                     b.HasOne("Foody.Model.Models.Address", "ShippingAddress")
@@ -631,8 +613,8 @@ namespace Foody.DataAcess.Migrations
                         .IsRequired();
 
                     b.HasOne("Foody.Model.Models.CheckOut", "CheckOut")
-                        .WithMany()
-                        .HasForeignKey("CheckOutId")
+                        .WithOne("Order")
+                        .HasForeignKey("Foody.Model.Models.Order", "CheckOutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -772,6 +754,12 @@ namespace Foody.DataAcess.Migrations
             modelBuilder.Entity("Foody.Model.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Foody.Model.Models.CheckOut", b =>
+                {
+                    b.Navigation("Order")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Foody.Model.Models.Customer", b =>

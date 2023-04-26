@@ -1,0 +1,15 @@
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\bin\Release\net6.0\Foody.DTOs.deps.json
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\bin\Release\net6.0\Foody.DTOs.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\bin\Release\net6.0\Foody.DTOs.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\bin\Release\net6.0\Foody.Model.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\bin\Release\net6.0\Foody.Model.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\Foody.DTOs.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\Foody.DTOs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\Foody.DTOs.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\Foody.DTOs.AssemblyInfo.cs
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\Foody.DTOs.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\Foody.DTOs.csproj.CopyComplete
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\Foody.DTOs.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\refint\Foody.DTOs.dll
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\Foody.DTOs.pdb
+C:\Users\HP\Desktop\VegeFoods\Foody\Foody.DTOs\obj\Release\net6.0\ref\Foody.DTOs.dll

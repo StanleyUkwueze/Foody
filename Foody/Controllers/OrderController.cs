@@ -2,6 +2,7 @@
 using Foody.DataAcess.UserOrderRepository;
 using Foody.DTOs;
 using Foody.Model.Models;
+using Foody.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +15,18 @@ namespace Foody.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IUserOrderRepo _userOrderRepo;
+        private readonly IOrderService _orderService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly AppDbContext _context;
-        public OrderController(IUserOrderRepo userOrderRepo, AppDbContext context, IHttpContextAccessor httpContextAccessor)
+        public OrderController(IUserOrderRepo userOrderRepo, IOrderService orderService, AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _userOrderRepo = userOrderRepo;
+            _orderService = orderService;
             _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
-        [HttpPost]
+        [HttpPost("place-an-order")]
         public async Task<IActionResult> PlaceOrder([FromBody] PlaceOrderRequestModel PlaceOrderRequestModel)
         {
           
@@ -42,6 +45,27 @@ namespace Foody.Controllers
         {
             var result = await _userOrderRepo.CancelOrder(orderId);
             if(result.IsSuccessful) return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpPost("mark-order-as-delivere/{orderId}")]
+        public async Task<IActionResult> MarkOrderAsDelivere(int orderId)
+        {
+            var result = await _userOrderRepo.MarkOrderAsDelivered(orderId);
+            if (result.IsSuccessful)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpPost("reinitiate-order/{orderId}")]
+        public async Task<IActionResult> ReinitiateAnOrder(int orderId)
+        {
+            var result = await _orderService.ReInitiateOrder(orderId);
+            if (result.IsSuccessful)
+            {
+                return Ok(result);
+            }
             return BadRequest(result);
         }
     }

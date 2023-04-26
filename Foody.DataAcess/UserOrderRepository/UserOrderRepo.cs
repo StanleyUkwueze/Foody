@@ -23,13 +23,36 @@ namespace Foody.DataAcess.UserOrderRepository
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<Response<Order>> PlaceOrderAsync(PlaceOrderRequestModel PlaceOrderRequestModel)
+        private string GetUserId()
         {
             var userId = _httpContextAccessor?.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return userId ?? string.Empty;
+        }
+
+        private async Task<ShoppingCart> GetUserCart(string userId )
+        {
+         
             var shoppingCart = await _context.ShoppingCarts
                                        .Include(sc => sc.CartDetails)
                                        .ThenInclude(ci => ci.Product)
                                        .FirstOrDefaultAsync(sc => sc.CustomerId == userId);
+            return shoppingCart;
+        }
+
+        public async Task<Order> GetUserOrderAsync(int orderId)
+        {
+            var userId = GetUserId();
+            var order = await _context.Orders.Include(x=>x.OrderItems)
+                         .FirstOrDefaultAsync(x=>x.Id == orderId && x.CustomerId == userId );
+            return order;
+        }
+
+        public async Task<Response<Order>> PlaceOrderAsync(PlaceOrderRequestModel PlaceOrderRequestModel)
+        {
+            var userId = GetUserId();
+            
+            var shoppingCart = await GetUserCart(userId);
+
             var scope = _context.Database.BeginTransaction();
 
             var Address = new Address
@@ -40,26 +63,28 @@ namespace Foody.DataAcess.UserOrderRepository
                 ZipCode = PlaceOrderRequestModel.ZipCode,
                 CustomerId = userId,
                 Street = PlaceOrderRequestModel.Street,
-               // Orders = new List<Order>()
             };
-
-
-            var checkout = new CheckOut
-            {
-               PaymentMethod = PlaceOrderRequestModel.PaymentMethod,
-               TotalPrice = PlaceOrderRequestModel.TotalPrice,
-            };
+             _context.Addresses.Add(Address);
+            await _context.SaveChangesAsync();
 
             var order = new Order
             {
                 CustomerId = userId,
-                OrderDate = DateTime.UtcNow,
+                OrderDate = DateTime.Now,
                 TotalPrice = shoppingCart.TotalPrice,
                 OrderStatusId = 5,
-                OrderItems = new List<OrderItem>(),
-                ShippingAddress = Address,
-                CheckOut = checkout
+                ShippingAddress = Address,   
             };
+            var checkout = new CheckOut
+            {
+                PaymentMethod = PlaceOrderRequestModel.PaymentMethod,
+                TotalPrice = PlaceOrderRequestModel.TotalPrice,
+                CheckOutDate = DateTime.Now, 
+            };
+            order.CheckOut = checkout;
+            checkout.Order = order;
+
+
 
             foreach (var cartItem in shoppingCart.CartDetails)
             {
@@ -70,17 +95,35 @@ namespace Foody.DataAcess.UserOrderRepository
                     Quantity = cartItem.Quantity,
                     Price = cartItem.Product.Price
                 };
+                order.TotalPrice += orderItem.Price;
                 order.OrderItems.Add(orderItem);
             }
-            
 
+            var successCount = 0;
             _context.Orders.Add(order);
-             var i =  await _context.SaveChangesAsync();
-            scope.Commit();
-            if (i > 0)
+            _context.CheckOuts.Add(checkout);
+           if( await _context.SaveChangesAsync()>0)
             {
-                //send a mail to the customer
-                return new Response<Order> { Data = order, Message = "Order successfully placed", IsSuccessful = true };
+                successCount++;
+            }
+
+            order.CheckOutId = checkout.Id;
+            _context.Orders.Update(order);
+
+            checkout.OrderId = order.Id;
+            _context.CheckOuts.Update(checkout);
+
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                successCount++;
+            }
+
+            if (successCount>=2)
+            {
+                scope.Commit();
+
+                // notify the admin via email service
+                return new Response<Order> { Data = order, Message = "Order successfully placed", IsSuccessful = true, StatusCode = 200 };
             }
 
             return new Response<Order> {  Message = "Order failed to be placed", IsSuccessful = false };
@@ -89,9 +132,10 @@ namespace Foody.DataAcess.UserOrderRepository
 
         public async Task<Response<string>> CancelOrder(int orderId)
         {
-            var userId = _httpContextAccessor?.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = GetUserId();
             var order = await _context.Orders
                 .Include(o => o.OrderItems)
+                .Include(s=>s.OrderStatus)
                 .SingleOrDefaultAsync(o => o.Id == orderId && o.CustomerId == userId);
 
             if (order == null)
@@ -101,7 +145,7 @@ namespace Foody.DataAcess.UserOrderRepository
                 IsSuccessful =false,
                 };
             }
-            if(order.OrderStatus.StatusId != 5)
+            if(order.OrderStatusId != 5)
             {
                 return new Response<string>
                 {
@@ -110,7 +154,9 @@ namespace Foody.DataAcess.UserOrderRepository
                 };
             }
             order.DateCancelled = DateTime.Now;
-            order.OrderStatus.StatusId = 4;
+            order.OrderStatusId = 4;
+            order.IsDeleted = true;
+            _context.Orders.Update(order);
 
             foreach (var orderItem in order.OrderItems)
             {
@@ -123,9 +169,30 @@ namespace Foody.DataAcess.UserOrderRepository
            var i = await _context.SaveChangesAsync();
             if(i> 0)
             {
-                return new Response<string> { IsSuccessful = true, Message = $"Successfully cancelled order with ID {orderId}" };
+                // notify the admin via email service that this order has been cancelled
+                return new Response<string> { IsSuccessful = true, Message = $"Successfully cancelled order with ID {orderId}", StatusCode = 200 };
             }
             return new Response<string> { IsSuccessful = false, Message = $"Order cancelation failed" };
+        }
+
+        public async Task<Response<string>> MarkOrderAsDelivered(int orderId)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null) return new Response<string> { IsSuccessful = false, Message = $"Order with the provided id: {orderId} is not found." };
+
+
+            if(order.OrderStatusId == 4 || order.IsDeleted) return new Response<string> { Message = "This order was cancelled", IsSuccessful=false, StatusCode = 400 };
+
+            if(order.OrderStatusId == 2) return new Response<string> { Message = "This order had already been marked delered", IsSuccessful = false,StatusCode = 4000  };
+            order.Delivered = DateTime.Now;
+            order.OrderStatusId = 2;
+
+            _context.Orders.Update(order);
+           if (await _context.SaveChangesAsync() > 0)
+            {
+                return new Response<string> { IsSuccessful = true, Message = "Order Successfully Marked as Delivered", StatusCode = 200 };
+            }
+            return new Response<string> { IsSuccessful = false, Message = "Marking order as Delivered failed", StatusCode = 500 };
         }
 
     }

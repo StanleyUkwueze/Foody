@@ -37,6 +37,7 @@ namespace Foody.DataAcess.CartRepository
         public Response<int> AddToCart(int productId, int qty)
         {
             string userId = GetUserId();
+            var successCount = 0;
             using var scope = _context.Database.BeginTransaction();
             try
             {
@@ -51,7 +52,10 @@ namespace Foody.DataAcess.CartRepository
                     _context.ShoppingCarts.Add(newCart);
                 }
 
-                _context.SaveChanges();
+                if(_context.SaveChanges() > 0)
+                {
+                    successCount++;
+                }
 
                 var CartDetail = _context.CartDetails.FirstOrDefault(x => x.ShoppingCartId == newCart.Id && x.ProductId == productId);
 
@@ -78,13 +82,22 @@ namespace Foody.DataAcess.CartRepository
                         };
                         _context.CartDetails.Add(CartDetail);
                         prod.Count = prod.Count - qty;
+                        newCart.TotalPrice = CartDetail.Price;
+
+                        _context.ShoppingCarts.Update(newCart);
                         _context.Products.Update(prod);
                     }
 
                 }
-                _context.SaveChanges();
-
-                scope.Commit();
+                if (_context.SaveChanges() > 0)
+                {
+                    successCount++;
+                }
+                if(successCount >= 2)
+                {
+                    scope.Commit();
+                    return new Response<int> {Message = "Item added successfully", Data = GetCartItemCount(userId),IsSuccessful = true, StatusCode = 200};
+                } 
 
             }
             catch (Exception ex)
@@ -93,10 +106,9 @@ namespace Foody.DataAcess.CartRepository
             }
             return new Response<int>
             {
-                Message = "Item added successfull",
-                Data = GetCartItemCount(userId),
-                IsSuccessful = true,
-                StatusCode = 200
+                Message = "Item Failed To add",
+                IsSuccessful = false,
+                StatusCode = 500
             };
         }
 
@@ -228,7 +240,7 @@ namespace Foody.DataAcess.CartRepository
         }
         public int GetCartItemCount(string userId = "")
         {
-            if (!string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(userId))
             {
                 userId = GetUserId();
             }
