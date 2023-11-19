@@ -58,7 +58,7 @@ namespace Foody.Service.Implementations
             {
                 CustomerId = orderToReinitiate.CustomerId,
                 IsDeleted = false,
-                CheckOutId = orderToReinitiate.CheckOutId,
+                PaymentMethod = orderToReinitiate.PaymentMethod,
                 AddressId = orderToReinitiate.AddressId,
                 TotalPrice = orderToReinitiate.TotalPrice,
                 OrderStatusId = orderToReinitiate.OrderStatusId,
@@ -85,7 +85,9 @@ namespace Foody.Service.Implementations
                 }
             }
 
-            _context.Orders.Remove(orderToReinitiate);
+
+           await _unitOfWork.IUserOrderRepo.Remove(orderToReinitiate);
+           // _context.Orders.Remove(orderToReinitiate);
             _context.SaveChanges();
 
             _context.Orders.Add(newOrder);
@@ -95,7 +97,7 @@ namespace Foody.Service.Implementations
             }
 
             newOrder.OrderStatusId = 6;
-            newOrder.CheckOutId = orderToReinitiate.CheckOutId;
+           // newOrder.CheckOutId = orderToReinitiate.CheckOutId;
             _context.Orders.Update(newOrder);
             if (await _context.SaveChangesAsync() > 0)
             {

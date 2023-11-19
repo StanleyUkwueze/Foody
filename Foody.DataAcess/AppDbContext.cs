@@ -18,7 +18,7 @@ namespace Foody.DataAcess
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
-        public DbSet<CheckOut> CheckOuts { get; set; }
+       // public DbSet<CheckOut> CheckOuts { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }

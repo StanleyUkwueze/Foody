@@ -4,9 +4,6 @@ namespace Foody.Service.Interfaces
 {
     public class UpdateUserDto
     {
-        [Required]
-        public string Id { get; set; }
-
         [StringLength(maximumLength: 50, ErrorMessage = "The property should not have more than {1} characters")]
         public string FirstName { get; set; }
 

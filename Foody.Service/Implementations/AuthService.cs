@@ -46,7 +46,7 @@ namespace Foody.Service.Implementations
             Customer user = await _userManager.FindByEmailAsync(useremail);
             if (user == null)
             {
-                throw new AccessViolationException("Access Denied");
+                return false;
             }
 
             var decodedToken = WebEncoders.Base64UrlDecode(token);
@@ -108,7 +108,14 @@ namespace Foody.Service.Implementations
             Response<RegisterResponseDto> response = new Response<RegisterResponseDto>();
 
             var checkuser = await _userManager.FindByEmailAsync(model.Email);
-            if (checkuser != null) throw new BadHttpRequestException("user with the email already exist");
+            if (checkuser != null)
+            {
+                return new Response<RegisterResponseDto>
+                {
+                    Message = "User with the email already exists",
+                    StatusCode = 400
+                };
+            }
 
             var customer = _mapper.Map<RegisterDto, Customer>(model);
 
@@ -117,7 +124,11 @@ namespace Foody.Service.Implementations
 
             if (!result.Succeeded)
             {
-                throw new BadHttpRequestException("Customer not successfully created");
+                return new Response<RegisterResponseDto>
+                {
+                    Message = "User was not created successfully",
+                    StatusCode = 400
+                };
             }
 
             //generate email confirmation token
@@ -138,7 +149,7 @@ namespace Foody.Service.Implementations
 
             if (!res)
             {
-               await _userManager.DeleteAsync(customer);
+                await _userManager.DeleteAsync(customer);
                 response.Message = "Mail not confirmed";
                 response.IsSuccessful = false;
 
@@ -146,12 +157,13 @@ namespace Foody.Service.Implementations
             }
 
             response.StatusCode = (int)HttpStatusCode.Created;
-            response.Message = "Registration successful";
+            response.Message = $"Registration successful {validToken}";
             response.IsSuccessful = true;
             response.Data = new RegisterResponseDto
             {
                 Id = customer.Id,
-                UserName = customer.UserName
+                UserName = customer.UserName,
+                
             };
             return response;
         }
@@ -168,15 +180,6 @@ namespace Foody.Service.Implementations
 
         private async Task<bool> SendMailAsync(string recipientmail, string subject, string body )
         {
-            var mailrequest = new MailRequest
-            {
-               // Name = name,
-                Subject = subject,
-                Body = body,
-              //  Link = link,
-                RecipientMail = recipientmail
-
-            };
             await _mailService.SendEmailAsync(recipientmail, subject, body);
             return true;
         }

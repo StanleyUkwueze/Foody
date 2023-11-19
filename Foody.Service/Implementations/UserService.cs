@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,12 +19,14 @@ namespace Foody.Service.Implementations
         private readonly UserManager<Customer> _userManager;
         private readonly IMapper _mapper;
         private readonly IphotoService _photoservice;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public UserService(UserManager<Customer> userManager, IMapper mapper, IphotoService photoservice)
+        public UserService(UserManager<Customer> userManager, IHttpContextAccessor contextAccessor, IMapper mapper, IphotoService photoservice)
         {
             _userManager = userManager;
             _mapper = mapper;
             _photoservice = photoservice;
+            _contextAccessor = contextAccessor;
         }
         public async Task<bool> DeleteUser(string Id)
         {
@@ -41,17 +44,17 @@ namespace Foody.Service.Implementations
         }
 
       
-        public PagedResponse<AdminUserDTO> GetAllUser(PagingParameter param)
+        public Response<PagedResponse<AdminUserDTO>> GetAllUser(PagingParameter param)
         {
             var pagedResult = _userManager.Users.Paginate(param.PageNumber, param.PageSize);
             if(pagedResult == null)
             {
-                throw new Exception("No Record is found");
+                return new Response<PagedResponse<AdminUserDTO>> {Message = "No record was found", IsSuccessful = false };
             }
 
             var mappedUsers = _mapper.Map<PagedResponse<Customer>, PagedResponse<AdminUserDTO>>(pagedResult);
 
-            return mappedUsers;
+            return new Response<PagedResponse<AdminUserDTO>> { Data = mappedUsers, Message = "Users successfully retried", IsSuccessful = true };
         }
 
         public async Task<Response<UserDTO>> GetUserByEmail(string email)
@@ -99,7 +102,8 @@ namespace Foody.Service.Implementations
         public async Task<Response<UserDTO>> UpdateUser(UpdateUserDto user)
         {
             Response<UserDTO> response = new Response<UserDTO>();
-            var userToUpdate = await _userManager.FindByIdAsync(user.Id);
+            var userId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userToUpdate = await _userManager.FindByIdAsync(userId);
 
             if(userToUpdate == null)
             {
@@ -135,8 +139,10 @@ namespace Foody.Service.Implementations
         public async Task<Response<string>> UploadPhoto(IFormFile file, string Id)
         {
             Response<string> response = new Response<string>();
+
+            var userId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             UploadAvatarResponse uploadAvatarResponse = new UploadAvatarResponse();
-            var user = await _userManager.FindByIdAsync(Id);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null) 
                 return new Response<string> { Message = "User does not exist", StatusCode = 404, IsSuccessful = false };

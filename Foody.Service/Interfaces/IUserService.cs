@@ -19,6 +19,6 @@ namespace Foody.Service.Interfaces
         Task<Response<UserDTO>> GetUserByEmail(string Id);
 
         Task<Response<string>> UploadPhoto(IFormFile file, string Id);
-        PagedResponse<AdminUserDTO> GetAllUser(PagingParameter param);
+        Response<PagedResponse<AdminUserDTO>> GetAllUser(PagingParameter param);
     }
 }

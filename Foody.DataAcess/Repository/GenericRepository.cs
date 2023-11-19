@@ -17,10 +17,10 @@ namespace Foody.DataAcess.Repository
             _context = context;
             dbSet = _context.Set<T>();
         }
-        public async Task Add(T entity)
+        public async Task<bool> Add(T entity)
         {
             dbSet.Add(entity);
-           await Save();
+          return await Save();
         }
 
         public IQueryable<T> GetAll()
@@ -53,7 +53,13 @@ namespace Foody.DataAcess.Repository
 
         public async Task<bool> Save()
         {
-          return await  _context.SaveChangesAsync() > 0;
+          return await  _context.SaveChangesAsync() > 0? true: false;
+        }
+
+        public async Task<bool> Update(T entity)
+        {
+            dbSet.Update(entity);
+            return await Save();
         }
     }
 }

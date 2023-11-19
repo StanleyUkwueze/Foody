@@ -26,11 +26,11 @@ namespace Foody.Service.Implementations
             _config = config;
         }
 
-        public Task SendEmailAsync(string email, string subject, string htmlMessage)
+        public async Task<MailjetResponse> SendEmailAsync(string email, string subject, string htmlMessage)
         {
-          return Execute(email, subject, htmlMessage);
+          return await Execute(email, subject, htmlMessage);
         }
-        public async Task Execute(string email, string subject, string body)
+        public async Task<MailjetResponse> Execute(string email, string subject, string body)
         {
 
 
@@ -87,6 +87,7 @@ namespace Foody.Service.Implementations
      }
              });
           var res =  await client.PostAsync(request);
+            return res;
         }
 
     }

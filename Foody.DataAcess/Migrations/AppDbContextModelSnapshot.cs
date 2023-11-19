@@ -125,32 +125,6 @@ namespace Foody.DataAcess.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Foody.Model.Models.CheckOut", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CheckOutDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PaymentMethod")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CheckOuts");
-                });
-
             modelBuilder.Entity("Foody.Model.Models.Customer", b =>
                 {
                     b.Property<string>("Id")
@@ -248,9 +222,6 @@ namespace Foody.DataAcess.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CheckOutId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -270,6 +241,10 @@ namespace Foody.DataAcess.Migrations
                     b.Property<int>("OrderStatusId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Shipped")
                         .HasColumnType("datetime2");
 
@@ -279,9 +254,6 @@ namespace Foody.DataAcess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("CheckOutId")
-                        .IsUnique();
 
                     b.HasIndex("CustomerId");
 
@@ -427,9 +399,8 @@ namespace Foody.DataAcess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
@@ -612,12 +583,6 @@ namespace Foody.DataAcess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Foody.Model.Models.CheckOut", "CheckOut")
-                        .WithOne("Order")
-                        .HasForeignKey("Foody.Model.Models.Order", "CheckOutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Foody.Model.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
@@ -629,8 +594,6 @@ namespace Foody.DataAcess.Migrations
                         .HasForeignKey("OrderStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CheckOut");
 
                     b.Navigation("Customer");
 
@@ -754,12 +717,6 @@ namespace Foody.DataAcess.Migrations
             modelBuilder.Entity("Foody.Model.Models.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Foody.Model.Models.CheckOut", b =>
-                {
-                    b.Navigation("Order")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Foody.Model.Models.Customer", b =>

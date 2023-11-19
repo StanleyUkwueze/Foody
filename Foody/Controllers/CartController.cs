@@ -22,24 +22,24 @@ namespace Foody.Controllers
             return Ok(result);
         }
         [HttpDelete("remove-item-from-cart")]
-        public IActionResult RemoveFromCart(int cartId)
+        public async Task<IActionResult> RemoveFromCart(int productId)
         {
-          var result = _cartRepo.RemoveFromCart(cartId);
+          var result = await _cartRepo.RemoveFromCart(productId);
             return Ok(result);
         }
 
         [HttpGet("get-user-cart")]
-        public IActionResult GetUserCart()
+        public async Task<IActionResult> GetUserCart()
         {
-            var result = _cartRepo.GetUserCart();
+            var result = await _cartRepo.GetUserCart();
             return Ok(result);
         }
 
-        [HttpPost("CheckOut")]
-        public IActionResult CheckOut()
-        {
-            var result = _cartRepo.DoCheckout();
-            return Ok(result);
-        }
+        //[HttpPost("CheckOut")]
+        //public async Task<IActionResult>  CheckOut()
+        //{
+        //    var result = await _cartRepo.DoCheckout();
+        //    return Ok(result);
+        //}
     }
 }

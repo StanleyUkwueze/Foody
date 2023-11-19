@@ -65,68 +65,53 @@ namespace Foody.DataAcess.UserOrderRepository
                 Street = PlaceOrderRequestModel.Street,
             };
              _context.Addresses.Add(Address);
-            await _context.SaveChangesAsync();
+            await Save();
 
+            var orderstatus = _context.OrderStatus.FirstOrDefault(o => o.StatusName == "Placed");
             var order = new Order
             {
                 CustomerId = userId,
                 OrderDate = DateTime.Now,
                 TotalPrice = shoppingCart.TotalPrice,
-                OrderStatusId = 5,
-                ShippingAddress = Address,   
-            };
-            var checkout = new CheckOut
-            {
+                OrderStatusId = orderstatus.Id,
+                ShippingAddress = Address, 
                 PaymentMethod = PlaceOrderRequestModel.PaymentMethod,
-                TotalPrice = PlaceOrderRequestModel.TotalPrice,
-                CheckOutDate = DateTime.Now, 
             };
-            order.CheckOut = checkout;
-            checkout.Order = order;
+           
 
-
-
-            foreach (var cartItem in shoppingCart.CartDetails)
+            if(shoppingCart.CartDetails.Count > 0)
             {
-                var orderItem = new OrderItem
+
+           
+                foreach (var cartItem in shoppingCart.CartDetails)
                 {
-                    ProductId = cartItem.Product.Id,
-                    Product = cartItem.Product,
-                    Quantity = cartItem.Quantity,
-                    Price = cartItem.Product.Price
-                };
-                order.TotalPrice += orderItem.Price;
-                order.OrderItems.Add(orderItem);
+                    var orderItem = new OrderItem
+                    {
+                        ProductId = cartItem.Product.Id,
+                        Product = cartItem.Product,
+                        Quantity = cartItem.Quantity,
+                        Price = cartItem.Product.Price
+                    };
+                    order.TotalPrice += orderItem.Price;
+                    order.OrderItems.Add(orderItem);
+                }
+
+                   var i =  await Add(order);
+
+                if (i)
+                {
+                    //remove items from the cart
+                    _context.CartDetails.RemoveRange(shoppingCart.CartDetails);
+                    _context.SaveChanges();
+                    scope.Commit();
+
+                    // notify the admin via email service
+                    return new Response<Order> { Data = order, Message = "Order successfully placed", IsSuccessful = true, StatusCode = 200 };
+                }
+
+                return new Response<Order> {  Message = "Order failed to be placed", IsSuccessful = false };
             }
-
-            var successCount = 0;
-            _context.Orders.Add(order);
-            _context.CheckOuts.Add(checkout);
-           if( await _context.SaveChangesAsync()>0)
-            {
-                successCount++;
-            }
-
-            order.CheckOutId = checkout.Id;
-            _context.Orders.Update(order);
-
-            checkout.OrderId = order.Id;
-            _context.CheckOuts.Update(checkout);
-
-            if (await _context.SaveChangesAsync() > 0)
-            {
-                successCount++;
-            }
-
-            if (successCount>=2)
-            {
-                scope.Commit();
-
-                // notify the admin via email service
-                return new Response<Order> { Data = order, Message = "Order successfully placed", IsSuccessful = true, StatusCode = 200 };
-            }
-
-            return new Response<Order> {  Message = "Order failed to be placed", IsSuccessful = false };
+            return new Response<Order> { Message = "Kindly add items to your shopping cart before attempting placing an order", IsSuccessful = false };
         }
 
 
@@ -163,11 +148,10 @@ namespace Foody.DataAcess.UserOrderRepository
                 var product = await _context.Products.FindAsync(orderItem.ProductId);
                 product.Count += orderItem.Quantity;
 
-                _context.Products.Update(product);
+               await Update(order);
             }
 
-           var i = await _context.SaveChangesAsync();
-            if(i> 0)
+            if (await Save())
             {
                 // notify the admin via email service that this order has been cancelled
                 return new Response<string> { IsSuccessful = true, Message = $"Successfully cancelled order with ID {orderId}", StatusCode = 200 };
@@ -187,13 +171,34 @@ namespace Foody.DataAcess.UserOrderRepository
             order.Delivered = DateTime.Now;
             order.OrderStatusId = 2;
 
-            _context.Orders.Update(order);
-           if (await _context.SaveChangesAsync() > 0)
+          var update = await Update(order);
+         
+           if (update)
             {
                 return new Response<string> { IsSuccessful = true, Message = "Order Successfully Marked as Delivered", StatusCode = 200 };
             }
             return new Response<string> { IsSuccessful = false, Message = "Marking order as Delivered failed", StatusCode = 500 };
         }
 
+        public async Task<bool> Remove(Order entity)
+        {
+            _context.Orders.Remove(entity);
+            return await Save();
+        }
+
+        public async Task<bool> Add(Order entity)
+        {
+            _context.Orders.Add(entity);
+           return await Save();
+        }
+        public async Task<bool> Update(Order entity)
+        {
+            _context.Orders.Update(entity);
+           return await Save();
+        }
+        public async Task<bool> Save()
+        {
+          return await _context.SaveChangesAsync() > 0 ? true : false;
+        }
     }
 }

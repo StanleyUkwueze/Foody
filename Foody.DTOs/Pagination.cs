@@ -11,6 +11,8 @@ namespace Foody.DTOs
     {
         public static PagedResponse<T> Paginate<T>(this IQueryable<T> query, int pageNumber, int pageSize) where T : class
         {
+            pageNumber = pageNumber == 0 ? 1 : pageNumber;
+            pageSize = pageSize == 0 ? 10 : pageSize;
             //Create and Initialize new Paged result
             var pagedResult = new PagedResponse<T>();
             pagedResult.CurrentPage = pageNumber;

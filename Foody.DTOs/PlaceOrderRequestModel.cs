@@ -12,7 +12,7 @@ namespace Foody.DTOs
     {
         public DateTime CheckOutDate { get; set; } = DateTime.Now;
         public string PaymentMethod { get; set; }
-        public decimal TotalPrice { get; set; }
+        //public decimal TotalPrice { get; set; }
         //public int OrderId { get; set; }
         public string State { get; set; }
         public string City { get; set; }
@@ -20,7 +20,7 @@ namespace Foody.DTOs
         public string Street { get; set; }
         public string ZipCode { get; set; }
        // public int CheckoutId { get; set; }
-        public string CustomerId { get; set; }
+        //public string CustomerId { get; set; }
 
     }
 }

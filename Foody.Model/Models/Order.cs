@@ -24,8 +24,9 @@ namespace Foody.Model.Models
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
         public string CustomerId { get; set; }
-        public int CheckOutId { get; set; }
+        //public int CheckOutId { get; set; }
         public decimal TotalPrice { get; set; }
+        public string PaymentMethod { get; set; }
         public int AddressId { get; set; }
         public int OrderStatusId { get; set; }
         public bool IsDeleted { get; set; } = false;
@@ -37,9 +38,9 @@ namespace Foody.Model.Models
         [JsonIgnore]
         public Address ShippingAddress { get; set; }
         public Customer Customer { get; set; }
-        [JsonIgnore]
-        [ForeignKey("CheckOutId")]
-        public CheckOut CheckOut { get; set; }
+        //[JsonIgnore]
+        //[ForeignKey("CheckOutId")]
+       // public CheckOut CheckOut { get; set; }
         public List<OrderItem> OrderItems { get; set; }
 
     }

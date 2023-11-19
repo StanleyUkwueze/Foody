@@ -50,27 +50,33 @@ namespace Foody.DataAcess.CartRepository
                         CustomerId = userId,
                     };
                     _context.ShoppingCarts.Add(newCart);
-                }
-
-                if(_context.SaveChanges() > 0)
-                {
-                    successCount++;
+                    if (_context.SaveChanges() > 0)
+                    {
+                        successCount++;
+                    }
                 }
 
                 var CartDetail = _context.CartDetails.FirstOrDefault(x => x.ShoppingCartId == newCart.Id && x.ProductId == productId);
 
+                var prod = _context.Products.Find(productId);
+              if(prod != null)
+              {
                 if (CartDetail != null)
                 {
+                    if (qty > prod.Count)
+                    {
+                        return new Response<int> { IsSuccessful = false, Message = $"The selected product has {prod.Count} quantity in stock, Kindly reduce the quantity!", StatusCode = 400 };
+                    }
                     CartDetail.Quantity += qty;
                 }
                 else
                 {
-                    var prod = _context.Products.Find(productId);
+                     
                     if (prod != null)
                     {
-                        if(qty > prod.Count)
+                        if(qty > prod.Count || prod.Count <= 0)
                         {
-                            throw new Exception($"the selected product has just {prod.Count} in stock, Kindly reduce the quantity!");
+                            return new Response<int> { IsSuccessful = false, Message = $"The selected product has just {prod.Count} in stock, Kindly reduce the quantity!", StatusCode = 400 };
                         }
                         CartDetail = new CartDetail
                         {
@@ -82,23 +88,49 @@ namespace Foody.DataAcess.CartRepository
                         };
                         _context.CartDetails.Add(CartDetail);
                         prod.Count = prod.Count - qty;
-                        newCart.TotalPrice = CartDetail.Price;
+                        newCart.TotalPrice = CartDetail.Price*qty;
 
                         _context.ShoppingCarts.Update(newCart);
                         _context.Products.Update(prod);
+
+                        if (_context.SaveChanges() > 0)
+                        {
+                            successCount++;
+                        }
                     }
 
                 }
-                if (_context.SaveChanges() > 0)
-                {
-                    successCount++;
-                }
-                if(successCount >= 2)
-                {
-                    scope.Commit();
-                    return new Response<int> {Message = "Item added successfully", Data = GetCartItemCount(userId),IsSuccessful = true, StatusCode = 200};
-                } 
+               
 
+                if(newCart != null)
+                {
+                   
+                        if (successCount >= 1)
+                        {
+                            scope.Commit();
+                            return new Response<int> { Message = "Item added successfully", Data = GetCartItemCount(userId), IsSuccessful = true, StatusCode = 200 };
+                        }
+                   
+                        else
+                        { 
+                            return new Response<int> { Message = $"Item not added successfully", IsSuccessful = false, StatusCode = 400 };
+
+                        }
+                }
+                else
+                {
+                    if (successCount >= 1)
+                    {
+                        scope.Commit();
+                        return new Response<int> { Message = "Item added successfully", Data = GetCartItemCount(userId), IsSuccessful = true, StatusCode = 200 };
+                    }
+                }
+              }
+              else
+              {
+                return new Response<int> { Message = $"Item not added successfully: No product was found with the provided Id: {productId}", IsSuccessful = false, StatusCode = 400 };
+
+              }
             }
             catch (Exception ex)
             {
@@ -106,7 +138,7 @@ namespace Foody.DataAcess.CartRepository
             }
             return new Response<int>
             {
-                Message = "Item Failed To add",
+                Message = "Oops! Item could not be added to the Cart",
                 IsSuccessful = false,
                 StatusCode = 500
             };
@@ -135,21 +167,25 @@ namespace Foody.DataAcess.CartRepository
                 { Message = "No item found on the cart", IsSuccessful = false, StatusCode = 204 };
             }
             return new Response<string>
-            { Message = "This is and empty cart", IsSuccessful = false, StatusCode = 400 };
+            { Message = "This is an empty cart", IsSuccessful = false, StatusCode = 400 };
 
         }
 
-        public async Task<ShoppingCart> GetUserCart()
+        public async Task<Response<ShoppingCart>> GetUserCart()
         {
             var userId = GetUserId();
-            if (userId == null)
-                throw new Exception("Invalid userid");
+            if (userId == null) return new Response<ShoppingCart> { Message = "Invalid userid", IsSuccessful = false, StatusCode = 400 };
+
+
+
             var shoppingCart = await _context.ShoppingCarts
                                   .Include(a => a.CartDetails)
                                   .ThenInclude(a => a.Product)
                                   .ThenInclude(a => a.Category)
                                   .Where(a => a.CustomerId == userId).FirstOrDefaultAsync();
-            return shoppingCart;
+            if(shoppingCart == null) return new Response<ShoppingCart> { Message = "User has no shoppingCart at the moment.", IsSuccessful = false, StatusCode = 400 };
+
+            return new Response<ShoppingCart> {  IsSuccessful = true, StatusCode = 200, Data = shoppingCart };
 
         }
         public async Task<Response<int>> RemoveFromCart(int productId)
@@ -157,21 +193,19 @@ namespace Foody.DataAcess.CartRepository
             string userId = GetUserId();
             try
             {
-                if (string.IsNullOrEmpty(userId))
-                    throw new Exception("user is not logged-in");
+                if (string.IsNullOrEmpty(userId)) return new Response<int> { Message = "user is not logged-in", IsSuccessful = false };
+                    
                 var cart = GetCart(userId);
                 if (cart is null)
-                    throw new Exception("Invalid cart");
-
-                var cartItem = _context.CartDetails
-                                  .FirstOrDefault(a => a.ShoppingCartId == cart.Id && a.ProductId == productId);
-                if (cartItem is null)
-                    throw new Exception("No items in cart");
+                    return new Response<int> { Message = "USser has no cart tied to him.", IsSuccessful = false };
+                var cartItem = await _context.CartDetails
+                                  .FirstOrDefaultAsync(a => a.ShoppingCartId == cart.Id && a.ProductId == productId);
+                if (cartItem is null) return new Response<int> { Message = "This shoppingcart is empty", IsSuccessful = false };
                 else if (cartItem.Quantity == 1)
                     _context.CartDetails.Remove(cartItem);
                 else
                     cartItem.Quantity = cartItem.Quantity - 1;
-                _context.SaveChanges();
+               await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -187,32 +221,35 @@ namespace Foody.DataAcess.CartRepository
 
         }
 
-        public async Task<bool> DoCheckout()
+        public async Task<Response<bool>> DoCheckout()
         {
-            using var transaction = _context.Database.BeginTransaction();
+            
             try
             {
-                // logic
-                // move data from cartDetail to order and order detail then we will remove cart detail
+                 var transaction = _context.Database.BeginTransaction();
                 var userId = GetUserId();
                 if (string.IsNullOrEmpty(userId))
-                    throw new Exception("User is not logged-in");
+                    return new Response<bool> { Message = "user is not logged-in", IsSuccessful = false };
                 var cart = GetCart(userId);
-                if (cart is null)
-                    throw new Exception("Invalid cart");
-                var cartDetail = _context.CartDetails
-                                    .Where(a => a.ShoppingCartId == cart.Id).ToList();
+                if (cart is null) return new Response<bool> { Message = "USser has no cart tied to him.", IsSuccessful = false };
+
+                var cartDetail = await _context.CartDetails
+                                    .Where(a => a.ShoppingCartId == cart.Id).ToListAsync();
                 if (cartDetail.Count == 0)
-                    throw new Exception("Cart is empty");
-                var cust = _userManager.FindByEmailAsync(userId).Result;
+                    return new Response<bool> { Message = "This shoppingcart is empty", IsSuccessful = false };
+                //var cust = _userManager.FindByEmailAsync(userId).Result;
+                var orderStatus = await _context.OrderStatus
+       .FirstOrDefaultAsync(x => x.StatusName == "Pending");
                 var order = new Order
                 {
                     CustomerId = userId,
                     OrderDate = DateTime.UtcNow,
-                    OrderStatusId = 1, 
+                    OrderStatusId = orderStatus.Id 
                 };
-                _context.Orders.Add(order);
-                _context.SaveChanges();
+                
+                await _context.Orders.AddAsync(order);
+                
+               await _context.SaveChangesAsync();
                 foreach (var item in cartDetail)
                 {
                     var orderDetail = new OrderItem
@@ -230,13 +267,14 @@ namespace Foody.DataAcess.CartRepository
                 _context.CartDetails.RemoveRange(cartDetail);
                 _context.SaveChanges();
                 transaction.Commit();
-                return true;
+                return new Response<bool> { Message = "Successfully Checked out", IsSuccessful = true, StatusCode =200};
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                return new Response<bool> { Message = $"The following Exception Occurred: ${ex.Message.ToString()}", IsSuccessful = false, StatusCode = 400 };
 
-                return false;
             }
+           
         }
         public int GetCartItemCount(string userId = "")
         {

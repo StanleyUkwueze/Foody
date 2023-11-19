@@ -43,7 +43,7 @@ namespace Foody.Controllers
             return Ok(result);
         }
 
-        [HttpPost("update-user")]
+        [HttpPost("upload-user-photo")]
         public async Task<IActionResult> UploadPhoto(IFormFile file, string id)
         {
             var result = await _userService.UploadPhoto(file, id);

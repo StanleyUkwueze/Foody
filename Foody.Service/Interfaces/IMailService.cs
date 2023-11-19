@@ -1,5 +1,6 @@
 ﻿using AutoMapper.Internal;
 using Foody.Commons;
+using Mailjet.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace Foody.Service.Interfaces
 {
     public interface IMailService
     {
-       // Task SendEmailAsync(MailRequest mailRequest);
+        // Task SendEmailAsync(MailRequest mailRequest);
 
-        Task SendEmailAsync(string email, string subject, string htmlMessage);
+        Task<MailjetResponse> SendEmailAsync(string email, string subject, string htmlMessage);
     }
 }

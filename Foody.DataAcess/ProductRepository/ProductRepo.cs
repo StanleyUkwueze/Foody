@@ -48,7 +48,7 @@ namespace Foody.DataAcess.CategoryRepository
              return await _context.Products.FirstOrDefaultAsync(c => c.Name == prodName);
         }
 
-        public async void Update(Product product)
+        public new async Task<bool> Update(Product product)
         {
             var productToUpdate = await _context.Categories.FirstOrDefaultAsync(c => c.Id == product.Id);
 
@@ -58,8 +58,9 @@ namespace Foody.DataAcess.CategoryRepository
                 productToUpdate.Description = product.Description;
                 productToUpdate.ImageUrl = product.ImageUrl;
 
-                _context.SaveChanges();
+              return await _context.SaveChangesAsync() > 0? true : false;
             }
+            return false;
         }
     }
 }
