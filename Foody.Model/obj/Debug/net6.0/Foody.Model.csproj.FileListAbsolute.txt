@@ -12,3 +12,17 @@ C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Model\obj\Debug\net6.0\refint\Foody.Mo
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.pdb
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.genruntimeconfig.cache
 C:\Users\HP\Desktop\VegeFoods\Foody\Foody.Model\obj\Debug\net6.0\ref\Foody.Model.dll
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\bin\Debug\net6.0\Foody.Model.deps.json
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\bin\Debug\net6.0\Foody.Model.runtimeconfig.json
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\bin\Debug\net6.0\Foody.Model.dll
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\bin\Debug\net6.0\Foody.Model.pdb
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.csproj.AssemblyReference.cache
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.AssemblyInfoInputs.cache
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.AssemblyInfo.cs
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.csproj.CoreCompileInputs.cache
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.dll
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\refint\Foody.Model.dll
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.pdb
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\Foody.Model.genruntimeconfig.cache
+C:\Users\Gideon Surakat\Downloads\Foody\Foody\Foody.Model\obj\Debug\net6.0\ref\Foody.Model.dll
