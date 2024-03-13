@@ -31,6 +31,8 @@ builder.Services.AddIdentity<Customer, IdentityRole>(options => {
     //others....
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
+builder.Services.AddScoped<RoleManager<IdentityRole>>();
+
 ServiceExtensions.AddServices(builder.Services);
 
 var mapperConfig = new MapperConfiguration(mc =>
@@ -75,7 +77,7 @@ var app = builder.Build();
 var scope = app.Services.CreateScope();
 var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<Customer>>();
-
+var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -84,10 +86,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// SeedUser.AddUser(db, userMgr).Wait();
+SeedUser.AddUser(db, userMgr, roleMgr).Wait();
 
-//CategorySeeder.AddCategories(db).Wait();
+CategorySeeder.AddCategories(db).Wait();
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 

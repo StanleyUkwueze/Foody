@@ -33,6 +33,14 @@ namespace Foody.Service
                 Services.AddScoped<ICartRepo, CartRepo>();
                 Services.AddScoped<IUserOrderRepo, UserOrderRepo>();
                 Services.AddScoped<IOrderService, OrderService>();
+
+                Services.AddCors(opt =>
+                {
+                    opt.AddPolicy("CorsPolicy", policy =>
+                    {
+                        policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                    });
+                });
         }
     }
 }

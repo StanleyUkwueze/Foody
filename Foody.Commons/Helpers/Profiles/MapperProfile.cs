@@ -16,7 +16,7 @@ namespace Foody.Commons.Helpers.Profiles
         {
             CreateMap<RegisterDto, Customer>();
             CreateMap<Category, CategoryResponseDto>();
-            CreateMap<Product, ProductResponseDto>();
+            CreateMap<Product, ProductResponseDto>().ReverseMap();
             CreateMap<PagedResponse<Product>, PagedResponse<ProductResponseDto>>();
             CreateMap<AddProductDto, Product>();
             CreateMap<AddCategoryDto, Category>();

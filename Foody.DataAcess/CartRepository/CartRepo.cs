@@ -104,7 +104,6 @@ namespace Foody.DataAcess.CartRepository
 
                 if(newCart != null)
                 {
-                   
                         if (successCount >= 1)
                         {
                             scope.Commit();
@@ -149,7 +148,7 @@ namespace Foody.DataAcess.CartRepository
             throw new NotImplementedException();
         }
 
-        public Response<string> ClearCart(int cartId)
+        public async Task<Response<string>> ClearCart(int cartId)
         {
             var cart = _context.ShoppingCarts.FirstOrDefault(x => x.Id == cartId);
 
@@ -158,7 +157,7 @@ namespace Foody.DataAcess.CartRepository
                 if (cart.CartDetails.Count > 0)
                 {
                     cart.CartDetails.RemoveRange(0, cart.CartDetails.Count);
-                    _context.SaveChanges();
+                   await _context.SaveChangesAsync();
 
                     return new Response<string>
                     { Message = "Cart successfully cleared", IsSuccessful = true, StatusCode = 200 };

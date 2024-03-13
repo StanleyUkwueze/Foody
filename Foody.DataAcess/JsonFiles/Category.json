@@ -6,9 +6,8 @@
     "DateCreated": "2012-09-08 00:00:00.000",
     "DateUpdated": "2012-09-08 00:00:00.000",
     "Products": [
-
       {
-        "Name": "FankeName",
+        "Name": "Carrot Delight",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2970.12,
         "ImageUrl": "http://placehold.it/32x32",
@@ -16,7 +15,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Green Bean Bliss",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3392.13,
         "ImageUrl": "http://placehold.it/32x32",
@@ -24,7 +23,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Potato Paradise",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2491.13,
         "ImageUrl": "http://placehold.it/32x32",
@@ -32,7 +31,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Broccoli Bliss",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3676.39,
         "ImageUrl": "http://placehold.it/32x32",
@@ -40,7 +39,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Spinach Supreme",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2655.44,
         "ImageUrl": "http://placehold.it/32x32",
@@ -48,7 +47,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Cucumber Crunch",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2249.49,
         "ImageUrl": "http://placehold.it/32x32",
@@ -64,9 +63,8 @@
     "DateCreated": "2012-09-08 00:00:00.000",
     "DateUpdated": "2012-09-08 00:00:00.000",
     "Products": [
-
       {
-        "Name": "FankeName",
+        "Name": "Savory Steak Sensation",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2970.12,
         "ImageUrl": "http://placehold.it/32x32",
@@ -74,7 +72,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Grilled Chicken Delight",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3392.13,
         "ImageUrl": "http://placehold.it/32x32",
@@ -82,7 +80,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Tender Pork Pleasure",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2491.13,
         "ImageUrl": "http://placehold.it/32x32",
@@ -90,7 +88,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Lamb Love",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3676.39,
         "ImageUrl": "http://placehold.it/32x32",
@@ -98,7 +96,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Spicy Sausage Surprise",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2655.44,
         "ImageUrl": "http://placehold.it/32x32",
@@ -106,7 +104,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Bacon Bonanza",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2249.49,
         "ImageUrl": "http://placehold.it/32x32",
@@ -123,7 +121,7 @@
     "DateUpdated": "2012-09-08 00:00:00.000",
     "Products": [
       {
-        "Name": "FankeName",
+        "Name": "Citrus Splash",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2970.12,
         "ImageUrl": "http://placehold.it/32x32",
@@ -131,7 +129,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Berry Burst",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3392.13,
         "ImageUrl": "http://placehold.it/32x32",
@@ -139,7 +137,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Tropical Tango",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2491.13,
         "ImageUrl": "http://placehold.it/32x32",
@@ -147,7 +145,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Apple Adventure",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3676.39,
         "ImageUrl": "http://placehold.it/32x32",
@@ -155,7 +153,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Pineapple Paradise",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2655.44,
         "ImageUrl": "http://placehold.it/32x32",
@@ -163,7 +161,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Grape Delight",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2249.49,
         "ImageUrl": "http://placehold.it/32x32",
@@ -179,9 +177,8 @@
     "DateCreated": "2012-09-08 00:00:00.000",
     "DateUpdated": "2012-09-08 00:00:00.000",
     "Products": [
-
       {
-        "Name": "FankeName",
+        "Name": "Crunchy Cereal Crunch",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2970.12,
         "ImageUrl": "http://placehold.it/32x32",
@@ -189,7 +186,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Nutty Granola Goodness",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3392.13,
         "ImageUrl": "http://placehold.it/32x32",
@@ -197,7 +194,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Oatmeal Delight",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2491.13,
         "ImageUrl": "http://placehold.it/32x32",
@@ -205,7 +202,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Rice Crispy Crunch",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3676.39,
         "ImageUrl": "http://placehold.it/32x32",
@@ -213,7 +210,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Wheat Flake Fiesta",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2655.44,
         "ImageUrl": "http://placehold.it/32x32",
@@ -221,26 +218,24 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Corn Flake Celebration",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2249.49,
         "ImageUrl": "http://placehold.it/32x32",
         "DateCreated": "2012-09-08 00:00:00.000",
         "DateUpdated": "2012-09-08 00:00:00.000"
-
       }
     ]
   },
   {
-    "Name": "Fruits",
+    "name": "Fruits",
     "ImageUrl": "/images/image03.jpg",
     "Description": " nostrud Lorem dolore deserunt qui cillum amet. Sunt quis ex qui aliquip sint aute ullamco",
     "DateCreated": "2012-09-08 00:00:00.000",
     "DateUpdated": "2012-09-08 00:00:00.000",
     "Products": [
-
       {
-        "Name": "FankeName",
+        "Name": "Sweet Strawberry Sensation",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2970.12,
         "ImageUrl": "http://placehold.it/32x32",
@@ -248,7 +243,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Tangy Tropical Treat",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3392.13,
         "ImageUrl": "http://placehold.it/32x32",
@@ -256,16 +251,15 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Zesty Orange Zing",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2491.13,
         "ImageUrl": "http://placehold.it/32x32",
         "DateCreated": "2012-09-08 00:00:00.000",
         "DateUpdated": "2012-09-08 00:00:00.000"
-        
       },
       {
-        "Name": "FankeName",
+        "Name": "Crunchy Apple Craze",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 3676.39,
         "ImageUrl": "http://placehold.it/32x32",
@@ -273,7 +267,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Luscious Lemon Lick",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2655.44,
         "ImageUrl": "http://placehold.it/32x32",
@@ -281,7 +275,7 @@
         "DateUpdated": "2012-09-08 00:00:00.000"
       },
       {
-        "Name": "FankeName",
+        "Name": "Peachy Pear Pleasure",
         "Description": "lorem piduyrh hjdjdkkk ndhjdiid ndjdd iduyrh hjdjdkkk ndhjdiid ndjdd",
         "Price": 2249.49,
         "ImageUrl": "http://placehold.it/32x32",
@@ -290,5 +284,4 @@
       }
     ]
   }
-
 ]

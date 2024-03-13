@@ -8,7 +8,7 @@ namespace Foody.DataAcess.CartRepository
     {
         Response<int> AddToCart(int productId, int qty);
         Task<decimal> CalculateTotalAmount(int cartId);
-        Response<string> ClearCart(int cartId);
+        Task<Response<string>> ClearCart(int cartId);
         Task<Response<bool>> DoCheckout();
         Task<Response<ShoppingCart>> GetUserCart();
         Task<Response<int>> RemoveFromCart(int productId);

@@ -145,7 +145,7 @@ namespace Foody.Service.Implementations
             //send the mail here
             //if email failed to send, then delete cutomer from db
             var name = $"{model.FirstName} {model.LastName}";
-            var res = await SendMailAsync(model.Email, "Email Confirmation", $"Kindly click the link to confirm your email <a href=`{HtmlEncoder.Default.Encode(urlToBeSentTocustomer)}`>Click here</a>");
+            var res = await SendMailAsync(model.Email, "Email Confirmation", $"Kindly click the link to confirm your email <a href=`{HtmlEncoder.Default.Encode(urlToBeSentTocustomer!)}`>Click here</a>");
 
             if (!res)
             {
@@ -180,7 +180,13 @@ namespace Foody.Service.Implementations
 
         private async Task<bool> SendMailAsync(string recipientmail, string subject, string body )
         {
-            await _mailService.SendEmailAsync(recipientmail, subject, body);
+            var emailMessage = new EmailMessage
+            {
+                To = recipientmail,
+                Subject = subject,
+                Body = body
+            };
+            await _mailService.SendEmailAsync(emailMessage);
             return true;
         }
     }

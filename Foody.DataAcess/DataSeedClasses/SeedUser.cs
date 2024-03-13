@@ -11,11 +11,22 @@ namespace Foody.DataAcess.DataSeedClasses
 {
     public static class SeedUser
     {
-        public async static Task AddUser(AppDbContext context, UserManager<Customer> userManager)
+         
+        public async static Task AddUser(AppDbContext context, UserManager<Customer> userManager, RoleManager<IdentityRole> roleMgr )
         {
             //add user to a role
+          
+            
             if (!userManager.Users.Any())
             {
+                var roles = new List<IdentityRole>() { new IdentityRole() { Name = "ADMIN" }, new IdentityRole() { Name = "Regular" } };
+
+
+                foreach(var role in roles) 
+                {
+                  await roleMgr.CreateAsync(role);
+                }
+                
 
                 //read json file
                 using StreamReader userToRead = new StreamReader("C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.DataAcess\\JsonFiles\\Customer.json");
@@ -28,24 +39,27 @@ namespace Foody.DataAcess.DataSeedClasses
                 string userType;
                 string msg = string.Empty;
 
-                foreach (var user in usersInfo)
+                foreach (var user in usersInfo!)
                 {
-                //    if (counter < 2)
-                //    {
-                //        userType = "ADMIN";
+                    var userPubId = Guid.NewGuid().ToString();
+                    user.publicId = userPubId;
+                    if (counter < 2)
+                    {
+                        userType = roles[0].Name;
 
-                //        var result = await userManager.CreateAsync(user, "P@ssword12");
 
-                //        var userRole = await userManager.AddToRoleAsync(user, role.);
-                //    }
+                        var result = await userManager.CreateAsync(user, "P@ssword12");
 
-                  
-                        userType = "Regular";
-                        var regularUser = await userManager.CreateAsync(user, "P@assword123");
-                        //var regularUserRole = await userManager.AddToRoleAsync(user, userType);
+                        var userRole = await userManager.AddToRoleAsync(user, userType);
+                    }
+
+
+                       userType = roles[1].Name;
+                       var regularUser = await userManager.CreateAsync(user, "P@assword123");
+                       var regularUserRole = await userManager.AddToRoleAsync(user, userType);
                     
 
-                    //counter += 1;
+                    counter += 1;
                 }
 
                 await context.SaveChangesAsync();

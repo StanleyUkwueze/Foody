@@ -21,8 +21,8 @@ namespace Foody.DataAcess.CategoryRepository
         public IQueryable<Product> Search(string searchTerm)
         {
             var products = _context.Products.Include(x=>x.Category).AsQueryable();
-            //if (string.IsNullOrWhiteSpace(searchTerm))
-            //    return employees;
+         if(!products.Any())  return products;
+
             var lowerCaseTerm = searchTerm.Trim().ToLower();
             products = products.Where(e => e.Name.ToLower().Contains(lowerCaseTerm) 
                                     || e.Description.ToLower().Contains(lowerCaseTerm) 
@@ -30,33 +30,27 @@ namespace Foody.DataAcess.CategoryRepository
                                     || e.Category.Description.ToLower().Contains(lowerCaseTerm));
             return products;
         }
-
-            //public IQueryable<Product> GetFilterdProductss(string query )
-            //{
-            //    var res = _context.Products.Include(b => b.Category).Where(x => 
-            //                          EF.Functions.Like(x.Name, $"%{query}%")
-            //                       || EF.Functions.Like(x.Description, $"%{query}%")
-            //                       || EF.Functions.Like(x.Category.Description, $"%{query}%")
-            //                       || EF.Functions.Like(x.Category.Name, $"%{query}%"))
-            //                        .AsQueryable();
-            //    return res;
-            //}
       
 
         public async Task<Product> GetProductByName(string prodName)
         {
-             return await _context.Products.FirstOrDefaultAsync(c => c.Name == prodName);
+            if (string.IsNullOrEmpty(prodName)) return new Product { };
+
+             var result = await _context.Products.FirstOrDefaultAsync(c => c.Name == prodName);
+            if (result != null) return result;
+
+               return new Product { };
         }
 
-        public new async Task<bool> Update(Product product)
+        public async Task<bool> Update(UpdateProductDto product)
         {
-            var productToUpdate = await _context.Categories.FirstOrDefaultAsync(c => c.Id == product.Id);
+            var productToUpdate = await _context.Products.FirstOrDefaultAsync(c => c.Id == product.Id);
 
             if(productToUpdate != null)
             {
                 productToUpdate.Name = product.Name;
                 productToUpdate.Description = product.Description;
-                productToUpdate.ImageUrl = product.ImageUrl;
+                productToUpdate.Price = product.Price;
 
               return await _context.SaveChangesAsync() > 0? true : false;
             }

@@ -35,6 +35,13 @@ namespace Foody.Controllers
             return Ok(result);
         }
 
+        [HttpGet("clear-cart")]
+        public async Task<IActionResult> ClaerCart(int cartId)
+        {
+            var result = await _cartRepo.ClearCart(cartId);
+            return Ok(result);
+        }
+
         //[HttpPost("CheckOut")]
         //public async Task<IActionResult>  CheckOut()
         //{

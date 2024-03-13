@@ -6,6 +6,7 @@ using Mailjet.Client.Resources;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Newtonsoft.Json.Linq;
@@ -13,81 +14,54 @@ using Org.BouncyCastle.Crypto.Macs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Foody.Service.Implementations
 {
+    public class EmailMessage
+    {
+        public string To { get; set; }
+        public string Body { get; set; }
+        public string Subject { get; set; }
+    }
     public class MailService : IMailService
     {
+        public const string Email = "stanleyukwueze9@gmail.com";
+        public const string Host = "smtp.gmail.com";
+        public const string Username = "Stanley Ukwueze";
+        public const string Password = "kxfelgzskqcwhieh";
+        public const int Port = 587;
+
         private readonly IConfiguration _config;
         public MailService(IConfiguration config)
         {
             _config = config;
         }
 
-        public async Task<MailjetResponse> SendEmailAsync(string email, string subject, string htmlMessage)
+        public async Task<string> SendEmailAsync(EmailMessage emailMessage)
         {
-          return await Execute(email, subject, htmlMessage);
-        }
-        public async Task<MailjetResponse> Execute(string email, string subject, string body)
-        {
+            var email = new MimeMessage();
+            email.From.Add(new MailboxAddress(Username, Email));
+
+            email.To.Add(MailboxAddress.Parse(emailMessage.To));
+
+            email.Subject = emailMessage.Subject;
+            var builder = new BodyBuilder();
 
 
-            //var filePath = Directory.GetCurrentDirectory() + "\\MailPage\\mail.html";
+            builder.HtmlBody = emailMessage.Body;
+            email.Body = builder.ToMessageBody();
 
-            //var streamReader = new StreamReader(filePath);
 
-            //var mailText = streamReader.ReadToEnd();
-            //streamReader.Close();
-            //mailText = mailText.Replace("[username]", "Stanley")
-            //                    .Replace("[Message]", email);
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
 
-            //body = mailText;
-
-            MailjetClient client = new MailjetClient("88e3288bab40b64e7db026b5e2187bb1" ,"70e2afa525c204439749fa7e711c5b2f")
-            {
-                //Version = ApiVersion.V3_1,
-            };
-            MailjetRequest request = new MailjetRequest
-            {
-                Resource = Send.Resource,
-            }
-             .Property(Send.Messages, new JArray {
-     new JObject {
-      {
-       "Sender",
-       new JObject {
-        {"Email", "stanleyjekwu16@gmail.com"},
-        {"Name", "Stanley"}
-       }
-      }, {
-       "To",
-       new JArray {
-        new JObject {
-            {
-          "Email",
-         email
-         }, {
-          "Name",
-         "STanley"
-         }
-        }
-       }
-      }, {
-       "Subject",
-     subject
-      }, {
-       "TextPart",
-       "My first Mailjet email"
-      }, {
-       "HTMLPart",
-        body
-      }
-     }
-             });
-          var res =  await client.PostAsync(request);
-            return res;
+            smtp.Connect(Host, Port, MailKit.Security.SecureSocketOptions.StartTls);
+            smtp.Authenticate(Email, Password);
+            var result = await smtp.SendAsync(email);
+            smtp.Disconnect(true);
+            return result;
         }
 
     }

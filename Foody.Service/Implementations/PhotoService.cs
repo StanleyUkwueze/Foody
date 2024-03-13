@@ -2,16 +2,9 @@
 using CloudinaryDotNet.Actions;
 using Foody.Commons.Helpers;
 using Foody.Service.Interfaces;
-using Humanizer;
-using Mailjet.Client.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Foody.Service.Implementations
 {

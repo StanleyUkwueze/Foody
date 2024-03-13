@@ -13,7 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foody.DTOs", "Foody.DTOs\Fo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foody.Commons", "Foody.Commons\Foody.Commons.csproj", "{B5E3C68A-D16F-4EF4-ADA9-162FB7004CAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foody.Service", "Foody.Service\Foody.Service.csproj", "{A032B9B8-C33E-46B7-B697-FF358CD14D4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foody.Service", "Foody.Service\Foody.Service.csproj", "{A032B9B8-C33E-46B7-B697-FF358CD14D4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C5B91ACE-5EFC-42B4-AAAA-863C762CF2FA}"
+	ProjectSection(SolutionItems) = preProject
+		.gitingnore = .gitingnore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

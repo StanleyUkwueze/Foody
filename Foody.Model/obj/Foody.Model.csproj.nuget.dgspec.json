@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gideon Surakat\\Downloads\\Foody\\Foody\\Foody.Model\\Foody.Model.csproj": {}
+    "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gideon Surakat\\Downloads\\Foody\\Foody\\Foody.Model\\Foody.Model.csproj": {
+    "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gideon Surakat\\Downloads\\Foody\\Foody\\Foody.Model\\Foody.Model.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj",
         "projectName": "Foody.Model",
-        "projectPath": "C:\\Users\\Gideon Surakat\\Downloads\\Foody\\Foody\\Foody.Model\\Foody.Model.csproj",
-        "packagesPath": "C:\\Users\\Gideon Surakat\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gideon Surakat\\Downloads\\Foody\\Foody\\Foody.Model\\obj\\",
+        "projectPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\Foody.Model.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HP\\Desktop\\VegeFoods\\Foody\\Foody.Model\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gideon Surakat\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -86,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

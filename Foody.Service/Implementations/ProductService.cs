@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CloudinaryDotNet.Actions;
 using Foody.DataAcess.UnitOfWork;
 using Foody.DTOs;
 using Foody.Model.Models;
@@ -21,26 +22,37 @@ namespace Foody.Service.Implementations
         {
             Response<ProductResponseDto> response = new Response<ProductResponseDto>();
 
-            if (productDto == null) return new Response<ProductResponseDto> { Data = null, IsSuccessful = false, Message = "Kindly provide data needed" };
+            if (productDto == null) return new Response<ProductResponseDto> {IsSuccessful = false, Message = "Kindly provide data needed" };
            
 
-            var productId =  _unitOfWork.CategoryRepo.GetFirstOrDefauly(x => x.Name == productDto.CategoryName);
+            var productCategory =  _unitOfWork.CategoryRepo.GetFirstOrDefauly(x => x.Name.ToLower() == productDto.CategoryName.Trim().ToLower());
 
-            if (productId != null)
+            if (productCategory != null)
             {
                 var productToAdd =  _mapper.Map<AddProductDto, Product>(productDto);
-                productToAdd.CategoryId = productId.Id;
+                productToAdd.CategoryId = productCategory.Id;
 
-               await _unitOfWork.ProductRepo.Add(productToAdd);
+              var isAdded =  await _unitOfWork.ProductRepo.Add(productToAdd);
+              if(isAdded)
+                        {
+                    var addedProduct = _mapper.Map<Product, ProductResponseDto>(productToAdd);
+                    response.IsSuccessful = true;
+                    response.Message = "Product Added successfully";
+                    response.Data = addedProduct;
+                    response.StatusCode = 000;
 
-                response.IsSuccessful = true;
-                response.Message = "Product Added successfully";
+                   return response;
+                }
+
+                response.IsSuccessful = false;
+                response.Message = "An error occured while adding the product";
+                response.Errors = new string[] { "Product Not Added" };
                 return response;
-
             }
 
             response.IsSuccessful = false;
             response.Message = "Category name does not exist";
+            response.Errors = new string[] { "Category Not Added" };
             return response;
 
         }
@@ -50,7 +62,8 @@ namespace Foody.Service.Implementations
             var productToDelete = _unitOfWork.ProductRepo.GetFirstOrDefauly(x => x.Id == Id);
             if(productToDelete != null)
             {
-               await _unitOfWork.ProductRepo.Remove(productToDelete);
+              var isDeleted = await _unitOfWork.ProductRepo.Remove(productToDelete);
+                if(!isDeleted) return new Response<string> { IsSuccessful = true, Message = "Opps! Product could not be deleted", Errors = new string[] { "Product Not Found" } };
                 return new Response<string> { IsSuccessful = true, Message = "Product deleted successfully" };
             }
 
@@ -60,8 +73,12 @@ namespace Foody.Service.Implementations
         public PagedResponse<ProductResponseDto> GetAllProducts(SearchParameter searchQuery)
         {
             var Products = _unitOfWork.ProductRepo.GetAll().Paginate(searchQuery.PageNumber, searchQuery.PageSize);
-            var ProductToReturn = _mapper.Map<PagedResponse<ProductResponseDto>>(Products);
+            if (Products.Result.Count < 1) return new PagedResponse<ProductResponseDto> { Message = "No product found", StatusCode = 404 , Errors = new string[] { "Product Not Found" } };
 
+            var ProductToReturn = _mapper.Map<PagedResponse<ProductResponseDto>>(Products);
+            ProductToReturn.IsSuccessful = true;
+            ProductToReturn.Message = "Successfully fetched all products";
+            
             return ProductToReturn;
         }
 
@@ -69,25 +86,79 @@ namespace Foody.Service.Implementations
         {
             var result = _unitOfWork.ProductRepo.Search(query.Query).Paginate(query.PageNumber, query.PageSize);
 
+            if (result.Result.Count < 1) return new PagedResponse<ProductResponseDto> {Message = "No product found", StatusCode = 404, Errors = new string[] { "Product Not Found" } };
+
             var ProductToReturn = _mapper.Map<PagedResponse<ProductResponseDto>>(result);
+            ProductToReturn.IsSuccessful = true;
+            ProductToReturn.Message = "Successfully fetched products";
+
             return ProductToReturn;
+ 
         }
 
-        public ProductResponseDto GetProductById(int Id)
+        public  Response<ProductResponseDto> GetProductById(int Id)
         {
             var Product = _unitOfWork.ProductRepo.GetFirstOrDefauly(c => c.Id == Id);
+            if (Product == null) return new Response<ProductResponseDto> { Message = "No product found", IsSuccessful = false, Errors = new string[] { "Product Not Found" } };
+
             var ProductToReturn =  _mapper.Map<ProductResponseDto>(Product);
 
-            return ProductToReturn;
+            return new Response<ProductResponseDto>
+            {
+                Message = "Product Successfully fetched",
+                Data = ProductToReturn,
+                IsSuccessful = true
+            };
         }
 
-        public async Task<ProductResponseDto> GetProductByName(string ProductName)
+        public async Task<Response<ProductResponseDto>> GetProductByName(string ProductName)
         {
             var Product = await _unitOfWork.ProductRepo.GetProductByName(ProductName);
         
-            var ProductToreturn = _mapper.Map<ProductResponseDto>(Product);
-            return ProductToreturn;
+            if(Product.Id > 0)
+            {
+                var ProductToreturn = _mapper.Map<ProductResponseDto>(Product);
+                return new Response<ProductResponseDto>
+                {
+                    Message = "Product successfully fetched",
+                    IsSuccessful  = true,
+                    Data = ProductToreturn
+                };
+            }
+            return new Response<ProductResponseDto>
+            {
+                Message = "No available product with the provided product name found",
+                IsSuccessful = false,
+                StatusCode = 404,
+                Errors = new string[] { "Product Not Found"}
+            };
+
         }
 
+        public async Task<Response<ProductResponseDto>> UpdateProduct(UpdateProductDto updateProductDto)
+        {
+            var isProductUpdated = await _unitOfWork.ProductRepo.Update(updateProductDto);
+
+            if (isProductUpdated)
+            {
+                var ProductToreturn = _mapper.Map<ProductResponseDto>(isProductUpdated);
+                return new Response<ProductResponseDto>
+                {
+                    Message = "Product successfully updated",
+                    IsSuccessful = true,
+                    StatusCode = 000,
+                    Data = ProductToreturn
+                };
+            }
+
+            return new Response<ProductResponseDto>
+            {
+                Message = "Product update failed",
+                IsSuccessful = false,
+                StatusCode = 500,
+                Errors = new string[] { "Product Update Failed" }
+            };
+
+        }
     }
 }
