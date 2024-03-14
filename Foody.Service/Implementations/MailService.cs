@@ -28,12 +28,6 @@ namespace Foody.Service.Implementations
     }
     public class MailService : IMailService
     {
-        public const string Email = "stanleyukwueze9@gmail.com";
-        public const string Host = "smtp.gmail.com";
-        public const string Username = "Stanley Ukwueze";
-        public const string Password = "kxfelgzskqcwhieh";
-        public const int Port = 587;
-
         private readonly IConfiguration _config;
         public MailService(IConfiguration config)
         {
