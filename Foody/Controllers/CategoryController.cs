@@ -29,15 +29,15 @@ namespace Foody.Controllers
             return Ok(cat);
         }
         [HttpGet("GetAllCategories")]
-        public IActionResult GetAllCategories(SearchParameter searchQuery)
+        public IActionResult GetAllCategories(int pageNumber, int pageSize)
         {
-            var cat = _categoryService.GetAllCategories(searchQuery);
+            var cat = _categoryService.GetAllCategories(pageNumber, pageSize);
             return Ok(cat);
         }
         [HttpPost("Add-Category")]
-        public IActionResult AddCategory(AddCategoryDto categoryDto)
+        public async Task<IActionResult> AddCategory(AddCategoryDto categoryDto)
         {
-            var result = _categoryService.AddCategory(categoryDto);
+            var result = await _categoryService.AddCategory(categoryDto);
             return Ok(result);
         }
 

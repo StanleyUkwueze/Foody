@@ -44,17 +44,17 @@ namespace Foody.Service.Implementations
         }
 
       
-        public Response<PagedResponse<AdminUserDTO>> GetAllUser(PagingParameter param)
+        public PagedResponse<List<AdminUserDTO>> GetAllUser(PagingParameter param)
         {
             var pagedResult = _userManager.Users.Paginate(param.PageNumber, param.PageSize);
             if(pagedResult == null)
             {
-                return new Response<PagedResponse<AdminUserDTO>> {Message = "No record was found", IsSuccessful = false };
+                return new PagedResponse<List<AdminUserDTO>> {Message = "No record was found", IsSuccessful = false };
             }
 
-            var mappedUsers = _mapper.Map<PagedResponse<Customer>, PagedResponse<AdminUserDTO>>(pagedResult);
+            var mappedUsers = _mapper.Map<List<Customer>, List<AdminUserDTO>>((List<Customer>)pagedResult.Result);
 
-            return new Response<PagedResponse<AdminUserDTO>> { Data = mappedUsers, Message = "Users successfully retried", IsSuccessful = true };
+            return new PagedResponse<List<AdminUserDTO>> { Data = mappedUsers, Message = "Users successfully retried", IsSuccessful = true };
         }
 
         public async Task<Response<UserDTO>> GetUserByEmail(string email)
@@ -102,7 +102,8 @@ namespace Foody.Service.Implementations
         public async Task<Response<UserDTO>> UpdateUser(UpdateUserDto user)
         {
             Response<UserDTO> response = new Response<UserDTO>();
-            var userId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = _contextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if(string.IsNullOrWhiteSpace(userId)) return new Response<UserDTO> { IsSuccessful = false, Message = "No logged in user found" };
             var userToUpdate = await _userManager.FindByIdAsync(userId);
 
             if(userToUpdate == null)
@@ -116,7 +117,6 @@ namespace Foody.Service.Implementations
 
             userToUpdate.FirstName = user.FirstName;
             userToUpdate.LastName = user.LastName;
-            userToUpdate.Gender =user.Gender;
             userToUpdate.Email = user.Email;
 
             var result = await _userManager.UpdateAsync(userToUpdate);
@@ -140,7 +140,7 @@ namespace Foody.Service.Implementations
         {
             Response<string> response = new Response<string>();
 
-            var userId = _contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = _contextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier);
             UploadAvatarResponse uploadAvatarResponse = new UploadAvatarResponse();
             var user = await _userManager.FindByIdAsync(userId);
 

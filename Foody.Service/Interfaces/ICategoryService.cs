@@ -1,20 +1,12 @@
-﻿using Foody.DataAcess.UnitOfWork;
-using Foody.DTOs;
-using Foody.Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Foody.DTOs;
 namespace Foody.Service.Interfaces
 {
     public interface ICategoryService
     {
-        Task<CategoryResponseDto> GetCategoryByName(string categoryName);
-        CategoryResponseDto GetCategoryById(int Id);
-        PagedResponse<CategoryResponseDto> GetAllCategories(SearchParameter searchQuery);
+        Task<Response<CategoryResponseDto>> GetCategoryByName(string categoryName);
+        Response<CategoryResponseDto> GetCategoryById(int Id);
+        PagedResponse<CategoryResponseDto> GetAllCategories(int PageNumber, int PageSize);
         Task<Response<string>> DeleteCategory(int Id);
-        Response<CategoryResponseDto> AddCategory(AddCategoryDto categoryDto);
+        Task<Response<AddCategoryDto>> AddCategory(AddCategoryDto categoryDto);
     }
 }

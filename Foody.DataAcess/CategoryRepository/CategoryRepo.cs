@@ -22,7 +22,7 @@ namespace Foody.DataAcess.CategoryRepository
          return await _context.Categories.FirstOrDefaultAsync(c => c.Name == cateName);
         }
 
-        public new void Update(Category category)
+        public void Update(Category category)
         {
             var categoryToUpdate = _context.Categories.FirstOrDefault(c => c.Id == category.Id);
 

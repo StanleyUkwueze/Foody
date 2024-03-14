@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Foody.Commons;
+using Foody.Commons.Helpers;
 using Foody.DataAcess;
 using Foody.DTOs;
 using Foody.Model.Models;
@@ -82,12 +83,12 @@ namespace Foody.Service.Implementations
                 var res = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                 if (res.Succeeded)
                 {
-                    //var roles = await _userManager.GetRolesAsync(user);
+                    var roles = await _userManager.GetRolesAsync(user);
 
                     var token = await _jwtService.GenerateJwtToken(user);
 
 
-                    return new LoginResponseDto { Id = user.Id, Status = true, Token = token, Message = "Successfully loged In!" };
+                    return new LoginResponseDto { Id = user.Id, Status = true, Roles = roles, Token = token, Message = "Successfully loged In!" };
                 }
 
 
@@ -119,7 +120,7 @@ namespace Foody.Service.Implementations
 
             var customer = _mapper.Map<RegisterDto, Customer>(model);
 
-            customer.publicId = "jjssdhhdhd";
+            customer.publicId = Guid.NewGuid().ToString();
             var result = await _userManager.CreateAsync(customer, model.Password);
 
             if (!result.Succeeded)
@@ -131,11 +132,8 @@ namespace Foody.Service.Implementations
                 };
             }
 
-            //generate email confirmation token
-            //encode the token
-            //validate the token
-
-
+            await _userManager.AddToRoleAsync(customer, Roles.Regular);
+            
             var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(customer);
             var encodedToken = Encoding.UTF8.GetBytes(emailConfirmationToken);
             var validToken = WebEncoders.Base64UrlEncode(encodedToken);

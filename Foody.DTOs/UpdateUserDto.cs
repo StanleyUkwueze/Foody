@@ -12,9 +12,5 @@ namespace Foody.Service.Interfaces
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
-        public string Gender { get; set; }
-
-        public DateTime DateCreated { get; set; } = DateTime.Now;
     }
 }

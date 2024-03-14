@@ -12,5 +12,6 @@ namespace Foody.DTOs
         public string Message { get; set; }
         public string Token { get; set; }
         public bool Status { get; set; }
+        public IList<string> Roles { get; set; } = new List<string>();
     }
 }

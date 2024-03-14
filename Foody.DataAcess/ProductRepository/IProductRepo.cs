@@ -11,7 +11,7 @@ namespace Foody.DataAcess.CategoryRepository
 {
     public interface IProductRepo : IGenericRepository<Product> 
     {
-        Task<bool> Update(UpdateProductDto product);
+        Task<Product> Update(UpdateProductDto product);
         Task<Product> GetProductByName(string prodName);
        // IQueryable<Product> Search(string query);
 

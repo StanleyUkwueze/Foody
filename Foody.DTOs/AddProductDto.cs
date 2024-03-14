@@ -12,6 +12,7 @@ namespace Foody.DTOs
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        public int StoredId { get; set; }
         public decimal Price { get; set; }
        // public bool IsStock { get; set; }
         public string ImageUrl { get; set; }

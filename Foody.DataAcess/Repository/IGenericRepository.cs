@@ -9,12 +9,12 @@ namespace Foody.DataAcess.Repository
 {
     public interface IGenericRepository<T> where T : class
     {
-       Task<bool> Add(T entity);
-        Task<bool> Update(T entity);
-        Task<bool> Save();
+       Task<bool> AddAsync(T entity);
+        Task<bool> UpdateAsync(T entity);
+        Task<bool> SaveAsync();
        IQueryable<T> GetAll();
        T GetFirstOrDefauly(Expression<Func<T, bool>>? filter = null);
-       Task<bool> Remove(T entity);
-       Task<bool> RemoveRange(IEnumerable<T> entity);
+       Task<bool> RemoveAsync(T entity);
+       Task<bool> RemoveRangeAsync(IEnumerable<T> entity);
     }
 }

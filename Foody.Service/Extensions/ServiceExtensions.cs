@@ -1,6 +1,7 @@
 ﻿using Foody.DataAcess.CartRepository;
 using Foody.DataAcess.CategoryRepository;
 using Foody.DataAcess.Repository;
+using Foody.DataAcess.StoreRepository;
 using Foody.DataAcess.UnitOfWork;
 using Foody.DataAcess.UserOrderRepository;
 using Foody.Service.Implementations;
@@ -33,6 +34,8 @@ namespace Foody.Service
                 Services.AddScoped<ICartRepo, CartRepo>();
                 Services.AddScoped<IUserOrderRepo, UserOrderRepo>();
                 Services.AddScoped<IOrderService, OrderService>();
+                Services.AddScoped<IStoreService, StoreService>();
+                Services.AddScoped<IStoreRepo, StoreRepo>();
 
                 Services.AddCors(opt =>
                 {

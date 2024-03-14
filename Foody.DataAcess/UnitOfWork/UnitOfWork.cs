@@ -1,5 +1,6 @@
 ﻿using Foody.DataAcess.CartRepository;
 using Foody.DataAcess.CategoryRepository;
+using Foody.DataAcess.StoreRepository;
 using Foody.DataAcess.UserOrderRepository;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,14 @@ namespace Foody.DataAcess.UnitOfWork
             _context = context;
             CategoryRepo = new CategoryRepo(context);
             ProductRepo = new ProductRepo(context);
+            StoreRepo = new StoreRepo(context);
         }
         public ICategoryRepo CategoryRepo { get; private set; }
 
         public IProductRepo ProductRepo { get; private set; }
         public ICartRepo CartRepo { get; private set; }
         public IUserOrderRepo IUserOrderRepo { get; private set; }
+        public IStoreRepo StoreRepo { get; private set; }
 
         //public void Dispose()
         //{

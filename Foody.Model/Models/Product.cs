@@ -9,14 +9,12 @@ namespace Foody.Model.Models
         public int Count { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-       // public bool IsStock { get; set; }
         public string ImageUrl { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
-        // public ShoppingCart ShoppingCart { get; set; }
         public List<OrderItem> OrderItems { get; set; }
         public int CategoryId { get; set; }
-        //[ForeignKey("CategoryId")]
+        public int StoreId { get; set; }
         public Category Category { get; set; }
     }
 }

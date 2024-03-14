@@ -17,10 +17,10 @@ namespace Foody.DataAcess.Repository
             _context = context;
             dbSet = _context.Set<T>();
         }
-        public async Task<bool> Add(T entity)
+        public async Task<bool> AddAsync(T entity)
         {
             dbSet.Add(entity);
-          return await Save();
+          return await SaveAsync();
         }
 
         public IQueryable<T> GetAll()
@@ -39,27 +39,27 @@ namespace Foody.DataAcess.Repository
             return  query.FirstOrDefault();
         }
 
-        public async Task<bool> Remove(T entity)
+        public async Task<bool> RemoveAsync(T entity)
         {
            dbSet.Remove(entity);
-           return await Save();
+           return await SaveAsync();
         }
 
-        public async Task<bool> RemoveRange(IEnumerable<T> entity)
+        public async Task<bool> RemoveRangeAsync(IEnumerable<T> entity)
         {
             dbSet.RemoveRange();
-           return await Save();
+           return await SaveAsync();
         }
 
-        public async Task<bool> Save()
+        public async Task<bool> SaveAsync()
         {
           return await  _context.SaveChangesAsync() > 0? true: false;
         }
 
-        public async Task<bool> Update(T entity)
+        public async Task<bool> UpdateAsync(T entity)
         {
             dbSet.Update(entity);
-            return await Save();
+            return await SaveAsync();
         }
     }
 }

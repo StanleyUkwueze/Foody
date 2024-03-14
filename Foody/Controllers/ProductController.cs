@@ -65,5 +65,13 @@ namespace Foody.Controllers
             if (!result.IsSuccessful) return NotFound(result);
             return Ok(result);
         }
+
+        [HttpPut("update-product")]
+        public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
+        {
+            var result = await _productService.UpdateProduct(updateProductDto);
+            if (!result.IsSuccessful) return BadRequest(result);
+            return Ok(result);
+        }
     }
 }

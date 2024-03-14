@@ -25,14 +25,27 @@ namespace Foody.Service.Implementations
             if (productDto == null) return new Response<ProductResponseDto> {IsSuccessful = false, Message = "Kindly provide data needed" };
            
 
-            var productCategory =  _unitOfWork.CategoryRepo.GetFirstOrDefauly(x => x.Name.ToLower() == productDto.CategoryName.Trim().ToLower());
-
-            if (productCategory != null)
+            var productCategory =  _unitOfWork.ProductRepo.GetFirstOrDefauly(x => x.Name.ToLower() == productDto.CategoryName.Trim().ToLower());
+            var productStore = _unitOfWork.StoreRepo.GetFirstOrDefauly(x => x.Id == productDto.StoredId);
+            if (productCategory == null)
             {
-                var productToAdd =  _mapper.Map<AddProductDto, Product>(productDto);
-                productToAdd.CategoryId = productCategory.Id;
+                response.IsSuccessful = false;
+                response.Message = "Category name does not exist";
+                response.Errors = new string[] { "Category Not Added" };
+                return response;
+            }
+            if (productStore == null) return new Response<ProductResponseDto>
+            {
+                Message = "Store not found",
+                IsSuccessful = false,
+            };
+                
+               var productToAdd =  _mapper.Map<AddProductDto, Product>(productDto);
+               productToAdd.CategoryId = productCategory.Id;
+               productToAdd.StoreId = productStore.Id;
 
-              var isAdded =  await _unitOfWork.ProductRepo.Add(productToAdd);
+               var isAdded =  await _unitOfWork.ProductRepo.AddAsync(productToAdd);
+
               if(isAdded)
                         {
                     var addedProduct = _mapper.Map<Product, ProductResponseDto>(productToAdd);
@@ -42,18 +55,15 @@ namespace Foody.Service.Implementations
                     response.StatusCode = 000;
 
                    return response;
-                }
+              }
 
                 response.IsSuccessful = false;
                 response.Message = "An error occured while adding the product";
                 response.Errors = new string[] { "Product Not Added" };
                 return response;
-            }
+            
 
-            response.IsSuccessful = false;
-            response.Message = "Category name does not exist";
-            response.Errors = new string[] { "Category Not Added" };
-            return response;
+          
 
         }
 
@@ -62,7 +72,7 @@ namespace Foody.Service.Implementations
             var productToDelete = _unitOfWork.ProductRepo.GetFirstOrDefauly(x => x.Id == Id);
             if(productToDelete != null)
             {
-              var isDeleted = await _unitOfWork.ProductRepo.Remove(productToDelete);
+              var isDeleted = await _unitOfWork.ProductRepo.RemoveAsync(productToDelete);
                 if(!isDeleted) return new Response<string> { IsSuccessful = true, Message = "Opps! Product could not be deleted", Errors = new string[] { "Product Not Found" } };
                 return new Response<string> { IsSuccessful = true, Message = "Product deleted successfully" };
             }
@@ -139,7 +149,7 @@ namespace Foody.Service.Implementations
         {
             var isProductUpdated = await _unitOfWork.ProductRepo.Update(updateProductDto);
 
-            if (isProductUpdated)
+            if (isProductUpdated.Id > 0)
             {
                 var ProductToreturn = _mapper.Map<ProductResponseDto>(isProductUpdated);
                 return new Response<ProductResponseDto>

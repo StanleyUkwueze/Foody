@@ -54,7 +54,6 @@ namespace Foody.Service.Implementations
             builder.HtmlBody = emailMessage.Body;
             email.Body = builder.ToMessageBody();
 
-
             using var smtp = new MailKit.Net.Smtp.SmtpClient();
 
             smtp.Connect(Host, Port, MailKit.Security.SecureSocketOptions.StartTls);

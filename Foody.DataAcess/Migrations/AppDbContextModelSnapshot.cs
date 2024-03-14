@@ -378,11 +378,16 @@ namespace Foody.DataAcess.Migrations
                     b.Property<int?>("ShoppingCartId")
                         .HasColumnType("int");
 
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("ShoppingCartId");
+
+                    b.HasIndex("StoreId");
 
                     b.ToTable("Products");
                 });
@@ -399,8 +404,9 @@ namespace Foody.DataAcess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
@@ -410,6 +416,33 @@ namespace Foody.DataAcess.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("Foody.Model.Models.Store", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stores");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -644,6 +677,12 @@ namespace Foody.DataAcess.Migrations
                         .WithMany("Products")
                         .HasForeignKey("ShoppingCartId");
 
+                    b.HasOne("Foody.Model.Models.Store", null)
+                        .WithMany("Products")
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
                 });
 
@@ -742,6 +781,11 @@ namespace Foody.DataAcess.Migrations
                 {
                     b.Navigation("CartDetails");
 
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Foody.Model.Models.Store", b =>
+                {
                     b.Navigation("Products");
                 });
 #pragma warning restore 612, 618

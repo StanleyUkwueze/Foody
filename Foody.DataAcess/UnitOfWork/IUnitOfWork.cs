@@ -1,5 +1,6 @@
 ﻿using Foody.DataAcess.CartRepository;
 using Foody.DataAcess.CategoryRepository;
+using Foody.DataAcess.StoreRepository;
 using Foody.DataAcess.UserOrderRepository;
 using Foody.Model.Models;
 using System;
@@ -16,8 +17,9 @@ namespace Foody.DataAcess.UnitOfWork
         IProductRepo ProductRepo { get; }
         ICartRepo CartRepo { get; }
         IUserOrderRepo IUserOrderRepo { get; }
+        IStoreRepo StoreRepo { get; }
 
-       
+
 
         void Save();
     }

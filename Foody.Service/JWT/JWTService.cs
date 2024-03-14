@@ -49,7 +49,7 @@ namespace Foody.Service.JWT
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now + _jWTData.TokenLifeTime,
+                Expires = DateTime.Now.AddMinutes(30), //+ _jWTData.TokenLifeTime,
                 Audience = _jWTData.Issuer,
                 Issuer = _jWTData.Issuer,
                 SigningCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature)

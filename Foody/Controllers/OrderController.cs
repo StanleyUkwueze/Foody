@@ -28,8 +28,7 @@ namespace Foody.Controllers
 
         [HttpPost("place-an-order")]
         public async Task<IActionResult> PlaceOrder([FromBody] PlaceOrderRequestModel PlaceOrderRequestModel)
-        {
-          
+        {         
             var result = await _userOrderRepo.PlaceOrderAsync(PlaceOrderRequestModel);
 
             if (result.IsSuccessful)

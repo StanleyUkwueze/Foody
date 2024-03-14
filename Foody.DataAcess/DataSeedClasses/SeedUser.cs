@@ -53,11 +53,12 @@ namespace Foody.DataAcess.DataSeedClasses
                         var userRole = await userManager.AddToRoleAsync(user, userType);
                     }
 
-
-                       userType = roles[1].Name;
-                       var regularUser = await userManager.CreateAsync(user, "P@assword123");
-                       var regularUserRole = await userManager.AddToRoleAsync(user, userType);
-                    
+                    if(counter>=2)
+                    {
+                        userType = roles[1].Name;
+                        var regularUser = await userManager.CreateAsync(user, "P@assword123");
+                        var regularUserRole = await userManager.AddToRoleAsync(user, userType);
+                    }
 
                     counter += 1;
                 }
