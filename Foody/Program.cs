@@ -80,11 +80,11 @@ var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<Customer>>();
 var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 SeedUser.AddUser(db, userMgr, roleMgr).Wait();
 

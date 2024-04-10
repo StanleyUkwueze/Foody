@@ -37,24 +37,26 @@ namespace Foody.Service.Implementations
         public async Task<string> SendEmailAsync(EmailMessage emailMessage)
         {
             var email = new MimeMessage();
-            email.From.Add(new MailboxAddress(Username, Email));
+            //email.From.Add(new MailboxAddress(Username, Email));
 
-            email.To.Add(MailboxAddress.Parse(emailMessage.To));
+            //email.To.Add(MailboxAddress.Parse(emailMessage.To));
 
-            email.Subject = emailMessage.Subject;
-            var builder = new BodyBuilder();
+            //email.Subject = emailMessage.Subject;
+            //var builder = new BodyBuilder();
 
 
-            builder.HtmlBody = emailMessage.Body;
-            email.Body = builder.ToMessageBody();
+            //builder.HtmlBody = emailMessage.Body;
+            //email.Body = builder.ToMessageBody();
 
-            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            //using var smtp = new MailKit.Net.Smtp.SmtpClient();
 
-            smtp.Connect(Host, Port, MailKit.Security.SecureSocketOptions.StartTls);
-            smtp.Authenticate(Email, Password);
-            var result = await smtp.SendAsync(email);
-            smtp.Disconnect(true);
-            return result;
+            //smtp.Connect(Host, Port, MailKit.Security.SecureSocketOptions.StartTls);
+            //smtp.Authenticate(Email, Password);
+            //var result = await smtp.SendAsync(email);
+            //smtp.Disconnect(true);
+            //return result;
+
+            return string.Empty;
         }
 
     }
