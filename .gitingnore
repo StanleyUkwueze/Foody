@@ -5,6 +5,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 # C extensions
+.vs/Foody
 *.so
 # Distribution / packaging
 .Python
